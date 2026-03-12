@@ -8,7 +8,7 @@ export const config = {
   url: "https://saacchq.org",
   social: {
     twitter: "https://x.com/saacchq",
-    discord: "https://discord.gg/TODO",
+    discord: "https://discord.gg/Ks4Dpdzkmn",
     github: "https://github.com/saacchq",
   },
   partners: [
