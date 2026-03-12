@@ -1,0 +1,34 @@
+---
+import LangToggle from "@/components/LangToggle.astro";
+import { config } from "@/config";
+import { getTranslation } from "@/i18n";
+---
+
+<nav class="fixed top-0 left-0 right-0 z-40 bg-[#161b22]/80 backdrop-blur-md border-b border-[#30363d]">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+      <img src="/assets/imgs/saacchq_logo.jpeg" alt="sa/acc" width="32" height="32" class="rounded" />
+      <span class="text-xl font-bold tracking-tight text-[#e6edf3]">sa<span class="text-[#3fb950]">/</span>acc</span>
+    </a>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-6">
+      <a
+        href="/manifesto"
+        class="hidden sm:inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+      >
+        <span class="lang-ar">{getTranslation("ar", "nav.manifesto")}</span>
+        <span class="lang-en">{getTranslation("en", "nav.manifesto")}</span>
+      </a>
+      <LangToggle />
+      <a
+        href="#join"
+        class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#3fb950] border border-[#3fb950] hover:bg-[#3fb950] hover:text-[#0d1117] transition-all duration-200"
+      >
+        <span class="lang-ar">{getTranslation("ar", "nav.join")}</span>
+        <span class="lang-en">{getTranslation("en", "nav.join")}</span>
+      </a>
+    </div>
+  </div>
+</nav>

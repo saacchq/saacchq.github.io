@@ -1,0 +1,87 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { config } from "@/config";
+import { getTranslation } from "@/i18n";
+
+const sections = [1, 2, 3, 4, 5];
+---
+
+<Layout>
+  <Header />
+
+  <main class="flex-grow z-10 pt-32 pb-24">
+    <!-- Title -->
+    <header class="px-6 max-w-3xl mx-auto mb-16">
+      <div class="text-[10px] text-[#3fb950] uppercase tracking-widest font-bold mb-4">
+        <span class="lang-ar">// {getTranslation("ar", "nav.manifesto")}</span>
+        <span class="lang-en">// {getTranslation("en", "nav.manifesto")}</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight text-[#e6edf3] mb-8 i18n-body">
+        <span class="lang-ar">{getTranslation("ar", "manifesto.page.title")}</span>
+        <span class="lang-en">{getTranslation("en", "manifesto.page.title")}</span>
+      </h1>
+      <div class="border-l-2 border-[#3fb950] pl-6">
+        <p class="text-[#8b949e] leading-relaxed text-sm md:text-base i18n-body">
+          <span class="lang-ar">{getTranslation("ar", "manifesto.page.preamble")}</span>
+          <span class="lang-en">{getTranslation("en", "manifesto.page.preamble")}</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- Sections -->
+    {sections.map((num) => (
+      <section class="px-6 max-w-3xl mx-auto mb-16">
+        <div class="border border-[#30363d] bg-[#161b22]/50">
+          <div class="border-b border-[#30363d] px-6 py-4">
+            <h2 class="text-sm md:text-base font-bold text-[#e6edf3] uppercase tracking-widest">
+              <span class="lang-ar">{getTranslation("ar", `manifesto.page.section${num}.title`)}</span>
+              <span class="lang-en">{getTranslation("en", `manifesto.page.section${num}.title`)}</span>
+            </h2>
+          </div>
+          <div class="px-6 py-6">
+            <p class="text-[#8b949e] leading-relaxed text-sm md:text-base i18n-body">
+              <span class="lang-ar">{getTranslation("ar", `manifesto.page.section${num}.body`)}</span>
+              <span class="lang-en">{getTranslation("en", `manifesto.page.section${num}.body`)}</span>
+            </p>
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <!-- Closing -->
+    <section class="px-6 max-w-3xl mx-auto mb-16">
+      <div class="border border-[#3fb950]/30 bg-[#3fb950]/5">
+        <div class="border-b border-[#3fb950]/30 px-6 py-4">
+          <h2 class="text-sm md:text-base font-bold text-[#3fb950] uppercase tracking-widest">
+            <span class="lang-ar">{getTranslation("ar", "manifesto.page.closing.title")}</span>
+            <span class="lang-en">{getTranslation("en", "manifesto.page.closing.title")}</span>
+          </h2>
+        </div>
+        <div class="px-6 py-6">
+          <p class="text-[#8b949e] leading-relaxed text-sm md:text-base i18n-body">
+            <span class="lang-ar">{getTranslation("ar", "manifesto.page.closing.body")}</span>
+            <span class="lang-en">{getTranslation("en", "manifesto.page.closing.body")}</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="px-6 max-w-3xl mx-auto text-center">
+      <a
+        href={config.social.discord}
+        target="_blank"
+        rel="noreferrer"
+        class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#3fb950] text-[#0d1117] text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.7.2a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.7 54 54 0 0 0-16.2 0A37.4 37.4 0 0 0 25.6.3a.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 11 4.9a.2.2 0 0 0-.1.1C1.6 18.4-.9 31.5.3 44.5a.3.3 0 0 0 .1.2 58.7 58.7 0 0 0 17.7 9 .2.2 0 0 0 .3-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.9a.2.2 0 0 1 .2 0 41.9 41.9 0 0 0 35.6 0 .2.2 0 0 1 .2 0l1.1.9a.2.2 0 0 1 0 .4 36.3 36.3 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.2 47.2 0 0 0 3.6 5.9.2.2 0 0 0 .3.1 58.5 58.5 0 0 0 17.7-9 .2.2 0 0 0 .1-.2c1.4-15-2.3-28-9.8-39.5a.2.2 0 0 0-.1-.1ZM23.7 36.5c-3.4 0-6.3-3.2-6.3-7s2.8-7 6.3-7c3.5 0 6.4 3.1 6.3 7 0 3.9-2.8 7-6.3 7Zm23.3 0c-3.4 0-6.3-3.2-6.3-7s2.8-7 6.3-7c3.5 0 6.4 3.1 6.3 7 0 3.9-2.8 7-6.3 7Z"/></svg>
+        <span class="lang-ar">{getTranslation("ar", "manifesto.page.cta")}</span>
+        <span class="lang-en">{getTranslation("en", "manifesto.page.cta")}</span>
+      </a>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
