@@ -13,7 +13,7 @@ export const config = {
   },
   partners: [
     {
-      name: "cranL",
+      name: "CranL",
       url: "https://cranl.com",
       urlLabel: "cranL.com",
       logo: "/assets/imgs/cranl_logo.png",

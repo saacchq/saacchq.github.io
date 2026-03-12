@@ -3,7 +3,7 @@
   "site.tagline": "التسارع السعودي",
   "hero.subtitle": "التسارع السعودي",
   "hero.intro": "> sa/acc (التسارع السعودي) هو ركن في الإنترنت — والعالم الحقيقي — للبناة والباحثين والمهندسين وعشاق الذكاء الاصطناعي في السعودية للتواصل والبناء معاً.",
-  "meeting.label": "COMMUNITY_MEETING",
+  "meeting.label": "اجتماع المجتمع",
   "manifesto.1.title": "ابنِ",
   "manifesto.1.body": "نُمكّن البناة الذين يستخدمون أدوات الذكاء الاصطناعي لإنشاء المنتجات والنماذج الأولية والحلول. إذا كنت تبني، فأنت منا.",
   "manifesto.2.title": "ابحث",
@@ -31,13 +31,13 @@
   "manifesto.page.cta": "انضم للحركة ←",
   "partners.title": "الشركاء",
   "associations.title": "الجمعيات",
-  "cta.discord": "CONNECT_DISCORD",
-  "cta.follow": "FOLLOW_X",
+  "cta.discord": "انضم للديسكورد",
+  "cta.follow": "تابعنا على X",
   "nav.lang": "EN",
-  "nav.join": "INIT_JOIN",
-  "nav.manifesto": "MANIFESTO",
-  "footer.copy": "© 2026 sa/acc // v1.0.0",
-  "footer.twitter": "X_TWITTER",
-  "footer.discord": "DISCORD",
-  "footer.github": "GITHUB_REPOS"
+  "nav.join": "انضم للحركة",
+  "nav.manifesto": "البيان",
+
+  "footer.twitter": "X",
+  "footer.discord": "ديسكورد",
+  "footer.github": "GitHub"
 }

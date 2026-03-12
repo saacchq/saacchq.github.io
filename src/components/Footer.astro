@@ -1,15 +1,17 @@
 ---
 import { config } from "@/config";
 import { getTranslation } from "@/i18n";
+
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth() + 1).padStart(2, "0");
+const day = String(now.getDate()).padStart(2, "0");
+const version = `V${year}.${month}.${day}`;
 ---
 
 <footer class="border-t border-[#30363d] bg-[#161b22] relative">
-  <div class="max-w-7xl mx-auto py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] text-[#8b949e] uppercase tracking-[0.2em]">
-    <div class="font-bold">
-      <span class="lang-ar">{getTranslation("ar", "footer.copy")}</span>
-      <span class="lang-en">{getTranslation("en", "footer.copy")}</span>
-    </div>
-    <div class="flex gap-6">
+  <div class="max-w-7xl mx-auto py-8 px-6 grid grid-cols-1 md:grid-cols-3 items-center gap-6 text-[10px] text-[#8b949e] uppercase tracking-[0.2em]">
+    <div class="flex gap-6 justify-center md:justify-start">
       <a href={config.social.twitter} target="_blank" rel="noreferrer" class="hover:text-[#e6edf3] transition-colors">
         <span class="lang-ar">{getTranslation("ar", "footer.twitter")}</span>
         <span class="lang-en">{getTranslation("en", "footer.twitter")}</span>
@@ -23,5 +25,7 @@ import { getTranslation } from "@/i18n";
         <span class="lang-en">{getTranslation("en", "footer.github")}</span>
       </a>
     </div>
+    <div class="text-center font-mono">{version}</div>
+    <div class="font-bold text-center md:text-end">&copy; {year} SA/ACC</div>
   </div>
 </footer>

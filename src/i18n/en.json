@@ -3,7 +3,7 @@
   "site.tagline": "Saudi Acceleration",
   "hero.subtitle": "Saudi Acceleration",
   "hero.intro": "> sa/acc (Saudi Acceleration) is a corner of the internet — and the real world — for builders, researchers, engineers, and AI enthusiasts in Saudi Arabia to communicate and build together.",
-  "meeting.label": "COMMUNITY_MEETING",
+  "meeting.label": "Community Meeting",
   "manifesto.1.title": "Build",
   "manifesto.1.body": "We empower builders who use AI tools to create products, prototypes, and solutions. If you ship, you belong here.",
   "manifesto.2.title": "Research",
@@ -31,13 +31,13 @@
   "manifesto.page.cta": "Join the movement →",
   "partners.title": "Partners",
   "associations.title": "Associations",
-  "cta.discord": "CONNECT_DISCORD",
-  "cta.follow": "FOLLOW_X",
-  "nav.lang": "AR_SA",
-  "nav.join": "INIT_JOIN",
-  "nav.manifesto": "MANIFESTO",
-  "footer.copy": "© 2026 sa/acc // v1.0.0",
-  "footer.twitter": "X_TWITTER",
-  "footer.discord": "DISCORD",
-  "footer.github": "GITHUB_REPOS"
+  "cta.discord": "Join Discord",
+  "cta.follow": "Follow on X",
+  "nav.lang": "عربي",
+  "nav.join": "Join",
+  "nav.manifesto": "Manifesto",
+
+  "footer.twitter": "X",
+  "footer.discord": "Discord",
+  "footer.github": "GitHub"
 }
