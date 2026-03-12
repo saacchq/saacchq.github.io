@@ -16,6 +16,19 @@ import { getTranslation } from "@/i18n";
     <span class="lang-ar">{getTranslation("ar", "hero.intro")}</span>
     <span class="lang-en">{getTranslation("en", "hero.intro")}</span>
   </p>
+  <!-- CTA -->
+  <div class="mt-8 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+    <a
+      href={config.social.discord}
+      target="_blank"
+      rel="noreferrer"
+      class="px-8 py-4 bg-[#3fb950] text-[#0d1117] text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all flex items-center justify-center gap-3 w-full sm:w-auto"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.7.2a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.7 54 54 0 0 0-16.2 0A37.4 37.4 0 0 0 25.6.3a.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 11 4.9a.2.2 0 0 0-.1.1C1.6 18.4-.9 31.5.3 44.5a.3.3 0 0 0 .1.2 58.7 58.7 0 0 0 17.7 9 .2.2 0 0 0 .3-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.9a.2.2 0 0 1 .2 0 41.9 41.9 0 0 0 35.6 0 .2.2 0 0 1 .2 0l1.1.9a.2.2 0 0 1 0 .4 36.3 36.3 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.2 47.2 0 0 0 3.6 5.9.2.2 0 0 0 .3.1 58.5 58.5 0 0 0 17.7-9 .2.2 0 0 0 .1-.2c1.4-15-2.3-28-9.8-39.5a.2.2 0 0 0-.1-.1ZM23.7 36.5c-3.4 0-6.3-3.2-6.3-7s2.8-7 6.3-7c3.5 0 6.4 3.1 6.3 7 0 3.9-2.8 7-6.3 7Zm23.3 0c-3.4 0-6.3-3.2-6.3-7s2.8-7 6.3-7c3.5 0 6.4 3.1 6.3 7 0 3.9-2.8 7-6.3 7Z"/></svg>
+      <span class="lang-ar">{getTranslation("ar", "cta.discord")}</span>
+      <span class="lang-en">{getTranslation("en", "cta.discord")}</span>
+    </a>
+  </div>
 </header>
 
 <!-- Global Meeting Badge -->
@@ -100,27 +113,3 @@ import { getTranslation } from "@/i18n";
   </div>
 </section>
 
-<!-- CTA -->
-<section id="join" class="px-6 text-center flex flex-col items-center gap-6 mb-12">
-  <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-    <a
-      href={config.social.discord}
-      target="_blank"
-      rel="noreferrer"
-      class="px-8 py-4 bg-[#3fb950] text-[#0d1117] text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all flex items-center justify-center gap-3 w-full sm:w-auto"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.7.2a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.7 54 54 0 0 0-16.2 0A37.4 37.4 0 0 0 25.6.3a.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 11 4.9a.2.2 0 0 0-.1.1C1.6 18.4-.9 31.5.3 44.5a.3.3 0 0 0 .1.2 58.7 58.7 0 0 0 17.7 9 .2.2 0 0 0 .3-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.9a.2.2 0 0 1 .2 0 41.9 41.9 0 0 0 35.6 0 .2.2 0 0 1 .2 0l1.1.9a.2.2 0 0 1 0 .4 36.3 36.3 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.2 47.2 0 0 0 3.6 5.9.2.2 0 0 0 .3.1 58.5 58.5 0 0 0 17.7-9 .2.2 0 0 0 .1-.2c1.4-15-2.3-28-9.8-39.5a.2.2 0 0 0-.1-.1ZM23.7 36.5c-3.4 0-6.3-3.2-6.3-7s2.8-7 6.3-7c3.5 0 6.4 3.1 6.3 7 0 3.9-2.8 7-6.3 7Zm23.3 0c-3.4 0-6.3-3.2-6.3-7s2.8-7 6.3-7c3.5 0 6.4 3.1 6.3 7 0 3.9-2.8 7-6.3 7Z"/></svg>
-      <span class="lang-ar">{getTranslation("ar", "cta.discord")}</span>
-      <span class="lang-en">{getTranslation("en", "cta.discord")}</span>
-    </a>
-    <a
-      href={config.social.twitter}
-      target="_blank"
-      rel="noreferrer"
-      class="px-8 py-4 bg-transparent border border-[#30363d] text-[#e6edf3] text-xs font-bold uppercase tracking-widest hover:border-[#8b949e] transition-colors flex items-center justify-center gap-3 w-full sm:w-auto"
-    >
-      <span class="lang-ar">{getTranslation("ar", "cta.follow")}</span>
-      <span class="lang-en">{getTranslation("en", "cta.follow")}</span>
-    </a>
-  </div>
-</section>
