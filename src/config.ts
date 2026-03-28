@@ -27,8 +27,8 @@ export const config = {
     },
   ],
   meeting: {
-    schedule: "Weekly",
-    scheduleAr: "أسبوعي",
+    schedule: "Every Friday at 10 PM (Riyadh)",
+    scheduleAr: "كل جمعة الساعة ١٠ مساءً (الرياض)",
   },
   manifesto: [
     { id: "01", tag: "#build" },

@@ -32,7 +32,7 @@ import { getTranslation } from "@/i18n";
 </header>
 
 <!-- Global Meeting Badge with Calendar Dropdown -->
-<section class="px-6 max-w-4xl mx-auto mb-12 flex justify-center">
+<section class="px-6 max-w-4xl mx-auto mb-12 flex flex-col items-center gap-3">
   <div class="relative" id="calendar-dropdown-wrapper">
     <button
       id="calendar-badge"
@@ -83,6 +83,10 @@ import { getTranslation } from "@/i18n";
       </a>
     </div>
   </div>
+  <p class="text-xs text-[#8b949e] text-center max-w-md i18n-body">
+    <span class="lang-ar">{getTranslation("ar", "meeting.description")}</span>
+    <span class="lang-en">{getTranslation("en", "meeting.description")}</span>
+  </p>
 </section>
 
 <script>
