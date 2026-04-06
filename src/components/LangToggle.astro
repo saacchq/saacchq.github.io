@@ -4,19 +4,19 @@ import { getTranslation } from "@/i18n";
 
 <button
   id="lang-toggle"
-  class="flex items-center gap-2 text-xs font-medium text-[#8b949e] hover:text-[#e6edf3] transition-colors bg-transparent border-none cursor-pointer font-mono"
+  class="flex items-center gap-2 text-xs font-medium text-[#8b949e] hover:text-[#e6edf3] transition-colors bg-transparent border-none cursor-pointer"
   type="button"
   aria-label="Toggle language"
 >
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
-  <span class="lang-ar">{getTranslation("ar", "nav.lang")}</span>
-  <span class="lang-en">{getTranslation("en", "nav.lang")}</span>
+  <span class="lang-ar" dir="auto">{getTranslation("ar", "nav.lang")}</span>
+  <span class="lang-en" dir="auto">{getTranslation("en", "nav.lang")}</span>
 </button>
 
 <script>
   const langToggle = document.getElementById("lang-toggle");
   langToggle?.addEventListener("click", () => {
-    const current = localStorage.getItem("lang") || "ar";
+    const current = localStorage.getItem("lang") || "en";
     const next = current === "ar" ? "en" : "ar";
     localStorage.setItem("lang", next);
     window.location.reload();

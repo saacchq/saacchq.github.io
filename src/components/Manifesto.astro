@@ -6,7 +6,9 @@ import { getTranslation } from "@/i18n";
 <!-- Hero -->
 <header class="px-6 max-w-4xl mx-auto text-center flex flex-col items-center mb-16">
   <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-[#e6edf3] pb-4">
-    sa<span class="text-[#3fb950]">/</span>acc<span class="cursor-blink text-[#3fb950]">_</span>
+    <span class="inline-block [unicode-bidi:isolate]" dir="ltr" lang="en">
+      sa<span class="text-[#3fb950]">/</span>acc<span class="cursor-blink text-[#3fb950]">_</span>
+    </span>
   </h1>
   <h2 class="text-sm md:text-base font-bold text-[#8b949e] mt-4 uppercase tracking-[0.3em] border border-[#30363d] py-3 inline-block px-6 bg-[#161b22]">
     <span class="lang-ar">{getTranslation("ar", "hero.subtitle")}</span>
@@ -135,7 +137,10 @@ import { getTranslation } from "@/i18n";
             <span class="lang-en">{getTranslation("en", `manifesto.${idx + 1}.body`)}</span>
           </p>
           <div class="mt-4 inline-flex items-center gap-2 text-[10px] text-[#3fb950] border border-[#3fb950]/30 bg-[#3fb950]/5 px-3 py-1.5">
-            <span class="uppercase tracking-widest font-bold">{item.tag}</span>
+            <span
+              class="inline-block uppercase tracking-widest font-bold [unicode-bidi:isolate]"
+              dir="ltr"
+              lang="en">{item.tag}</span>
           </div>
         </div>
       </div>
@@ -153,11 +158,23 @@ import { getTranslation } from "@/i18n";
       <span class="lang-en">{getTranslation("en", "partners.title")}</span>
     </h4>
     {config.partners.map((partner) => (
-      <a href={partner.url} target="_blank" rel="noreferrer" class="group flex items-center gap-4 p-4 border border-[#30363d] hover:border-[#3fb950] transition-colors">
+      <a
+        href={partner.url}
+        target="_blank"
+        rel="noreferrer"
+        class="group flex items-center gap-4 p-4 border border-[#30363d] hover:border-[#3fb950] transition-colors [unicode-bidi:isolate]"
+        dir="ltr"
+      >
         <img src={partner.logo} alt={partner.name} width="40" height="40" class="flex-shrink-0 rounded" />
         <div class="flex-grow">
           <div class="text-base font-bold text-[#e6edf3] group-hover:text-[#3fb950] transition-colors">{partner.name}</div>
-          <div class="text-[11px] text-[#8b949e] group-hover:text-[#3fb950] transition-colors">{partner.urlLabel} &rarr;</div>
+          <div
+            class="flex items-center gap-1.5 text-[11px] text-[#8b949e] group-hover:text-[#3fb950] transition-colors"
+            dir="ltr"
+          >
+            <span class="[unicode-bidi:isolate]">{partner.urlLabel}</span>
+            <span aria-hidden="true">&rarr;</span>
+          </div>
         </div>
       </a>
     ))}
@@ -171,11 +188,23 @@ import { getTranslation } from "@/i18n";
       <span class="lang-en">{getTranslation("en", "associations.title")}</span>
     </h4>
     {config.associations.map((assoc) => (
-      <a href={assoc.url} target="_blank" rel="noreferrer" class="group flex items-center gap-4 p-4 border border-[#30363d] hover:border-[#e6edf3] transition-colors">
+      <a
+        href={assoc.url}
+        target="_blank"
+        rel="noreferrer"
+        class="group flex items-center gap-4 p-4 border border-[#30363d] hover:border-[#e6edf3] transition-colors [unicode-bidi:isolate]"
+        dir="ltr"
+      >
         <img src={assoc.logo} alt={assoc.name} width="40" height="40" class="flex-shrink-0 rounded" />
         <div class="flex-grow">
           <div class="text-base font-bold text-[#e6edf3] group-hover:text-[#e6edf3] transition-colors">{assoc.name}</div>
-          <div class="text-[11px] text-[#8b949e] group-hover:text-[#e6edf3] transition-colors">{assoc.urlLabel} &rarr;</div>
+          <div
+            class="flex items-center gap-1.5 text-[11px] text-[#8b949e] group-hover:text-[#e6edf3] transition-colors"
+            dir="ltr"
+          >
+            <span class="[unicode-bidi:isolate]">{assoc.urlLabel}</span>
+            <span aria-hidden="true">&rarr;</span>
+          </div>
         </div>
       </a>
     ))}

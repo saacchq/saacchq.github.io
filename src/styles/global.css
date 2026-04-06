@@ -40,9 +40,13 @@ body {
   overflow-x: hidden;
 }
 
-html[lang="ar"] {
-  font-family: "Tajawal", ui-sans-serif, system-ui, sans-serif;
-  font-weight: 500;
+html[lang="ar"] body {
+  font-family: "JetBrains Mono", "Noto Sans Arabic", ui-sans-serif, system-ui,
+    sans-serif;
+}
+
+html[lang="en"] #lang-toggle .lang-en {
+  font-family: "Noto Sans Arabic", ui-sans-serif, system-ui, sans-serif;
 }
 
 a {
