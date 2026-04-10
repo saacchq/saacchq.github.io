@@ -144,6 +144,17 @@ function serializePost(fm, content) {
 // --- Main ---
 
 function syncPosts() {
+  // Bail BEFORE touching the output directory if the vault isn't here.
+  // CI runners don't have ~/Vault, so they should leave the committed
+  // src/data/posts/ alone and let astro build from those checked-in files.
+  if (!fs.existsSync(VAULT_POSTS_DIR)) {
+    process.stdout.write(
+      `Vault posts directory not found: ${VAULT_POSTS_DIR}\n` +
+        `Skipping sync — astro will build from existing src/data/posts/.\n`
+    );
+    return;
+  }
+
   ensureDir(POSTS_OUTPUT_DIR);
   ensureDir(ASSETS_OUTPUT_DIR);
 
@@ -162,13 +173,6 @@ function syncPosts() {
     }
   }
   cleanDir(POSTS_OUTPUT_DIR);
-
-  if (!fs.existsSync(VAULT_POSTS_DIR)) {
-    process.stdout.write(
-      `Vault posts directory not found: ${VAULT_POSTS_DIR}\n`
-    );
-    return;
-  }
 
   // Read vault posts
   const postFiles = fs
