@@ -39,6 +39,11 @@
   "nav.lang": "EN",
   "nav.join": "انضم للحركة",
   "nav.manifesto": "البيان",
+  "nav.posts": "المقالات",
+
+  "posts.title": "المقالات",
+  "posts.subtitle": "آخر الأخبار ومقالات المجتمع",
+  "posts.noPostsYet": "لا توجد مقالات بعد. تابعنا قريباً!",
 
   "footer.discord": "ديسكورد",
   "footer.github": "GitHub"

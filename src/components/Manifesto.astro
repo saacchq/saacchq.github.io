@@ -65,7 +65,7 @@ import { getTranslation } from "@/i18n";
         <span class="lang-en">{getTranslation("en", "meeting.addToCalendar")}</span>
       </div>
       <a
-        href="https://calendar.google.com/calendar/r?cid=saacchq@gmail.com"
+        href={`https://calendar.google.com/calendar/r?cid=${encodeURIComponent(config.contactEmail)}`}
         target="_blank"
         rel="noreferrer"
         class="flex items-center gap-3 px-4 py-3 text-xs text-[#e6edf3] hover:bg-[#3fb950]/10 hover:text-[#3fb950] transition-colors"

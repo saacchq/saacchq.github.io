@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-sans: "JetBrains Mono", monospace;
@@ -105,6 +106,441 @@ html[lang="en"] .lang-ar {
 
 html[lang="ar"] .lang-ar {
   display: inline;
+}
+
+/* Block-level language wrappers (used by markdown content) */
+.lang-block {
+  display: none;
+}
+html[lang="en"] .lang-block.lang-en {
+  display: block;
+}
+html[lang="ar"] .lang-block.lang-ar {
+  display: block;
+}
+
+/* ─── Post Hero ─── */
+.post-hero {
+  background:
+    radial-gradient(ellipse at top left, rgba(63, 185, 80, 0.15), transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(63, 185, 80, 0.08), transparent 50%),
+    linear-gradient(135deg, #0F0F0F 0%, #171717 100%);
+  border: 1px solid #252525;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.post-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(63, 185, 80, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(63, 185, 80, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+/* ─── Stat Grid ─── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.stat-block {
+  background: #171717;
+  border: 1px solid #252525;
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.stat-block:hover {
+  border-color: rgba(63, 185, 80, 0.4);
+}
+.stat-block .stat-number {
+  display: block;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  color: #3fb950;
+}
+.stat-block .stat-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #6E6E6E;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.stat-block.stat-green .stat-number { color: #3fb950; }
+.stat-block.stat-red .stat-number { color: #f85149; }
+.stat-block.stat-blue .stat-number { color: #58a6ff; }
+.stat-block.stat-purple .stat-number { color: #bc8cff; }
+.stat-block.stat-yellow .stat-number { color: #d29922; }
+.stat-block.stat-green { border-color: rgba(63, 185, 80, 0.3); }
+.stat-block.stat-red { border-color: rgba(248, 81, 73, 0.3); }
+.stat-block.stat-blue { border-color: rgba(88, 166, 255, 0.3); }
+.stat-block.stat-purple { border-color: rgba(188, 140, 255, 0.3); }
+.stat-block.stat-yellow { border-color: rgba(210, 153, 34, 0.3); }
+
+/* ─── Callouts ─── */
+.callout {
+  display: flex;
+  gap: 0.75rem;
+  background: #171717;
+  border-left: 4px solid #3fb950;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  color: #c9d1d9;
+}
+.callout::before {
+  content: "ℹ";
+  flex-shrink: 0;
+  color: #3fb950;
+  font-weight: 700;
+}
+.callout-info { border-left-color: #58a6ff; }
+.callout-info::before { content: "ℹ"; color: #58a6ff; }
+.callout-warning { border-left-color: #d29922; }
+.callout-warning::before { content: "⚠"; color: #d29922; }
+.callout-danger { border-left-color: #f85149; }
+.callout-danger::before { content: "✕"; color: #f85149; }
+.callout-success { border-left-color: #3fb950; }
+.callout-success::before { content: "✓"; color: #3fb950; }
+.callout p {
+  margin: 0;
+}
+.callout strong {
+  color: #e6edf3;
+}
+
+/* ─── Figures & Memes ─── */
+.post-figure {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.post-figure img {
+  max-width: 100%;
+  max-height: 360px;
+  border-radius: 12px;
+  border: 1px solid #252525;
+  margin: 0 !important;
+}
+.post-figure figcaption {
+  font-size: 0.75rem;
+  color: #6E6E6E;
+  text-align: center;
+  font-style: italic;
+  max-width: 36rem;
+}
+
+.post-meme {
+  margin: 2rem auto;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.post-meme img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #252525;
+  margin: 0 !important;
+}
+.post-meme figcaption {
+  font-size: 0.75rem;
+  color: #6E6E6E;
+  text-align: center;
+  font-style: italic;
+}
+
+.figure-people {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+.figure-people figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+.figure-people img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #252525;
+  margin: 0 !important;
+}
+.figure-people figcaption {
+  font-size: 0.75rem;
+  color: #8b949e;
+  text-align: center;
+  font-style: normal;
+}
+
+.figure-vs {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f85149;
+  letter-spacing: 0.1em;
+}
+
+/* ─── Partner logo grid ─── */
+.partner-grid {
+  margin: 2rem 0;
+}
+.partner-grid-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #6E6E6E;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.partner-grid-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  align-items: center;
+  justify-items: center;
+  background: #171717;
+  border: 1px solid #252525;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+}
+.partner-grid-items img {
+  max-width: 120px;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  transition: opacity 0.2s;
+  margin: 0 !important;
+}
+.partner-grid-items img:hover {
+  opacity: 1;
+}
+
+/* In slideshow mode, scale up the partner grid */
+body.slideshow-active .partner-grid-items {
+  padding: 2.5rem 2rem;
+  gap: 1.5rem;
+}
+body.slideshow-active .partner-grid-items img {
+  max-width: 160px;
+  max-height: 64px;
+}
+
+/* Slideshow scaling for figures */
+body.slideshow-active .post-figure img {
+  max-height: 480px;
+}
+body.slideshow-active .post-meme {
+  max-width: 480px;
+}
+body.slideshow-active .figure-people img {
+  width: 200px;
+  height: 200px;
+}
+body.slideshow-active .figure-people figcaption {
+  font-size: 1rem;
+}
+
+/* ─── Section Thumbnails ─── */
+.section-thumb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: #171717;
+  border: 1px solid #252525;
+  border-radius: 8px;
+  padding: 8px;
+  margin-right: 0.75rem;
+  vertical-align: middle;
+}
+.section-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: 0 !important;
+}
+
+/* ─── Source list (footnotes) ─── */
+.prose .footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #252525;
+  font-size: 0.8125rem;
+}
+.prose .footnotes h2 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6E6E6E;
+  margin-bottom: 1rem;
+}
+.prose .footnotes ol {
+  padding-left: 1.5rem;
+}
+.prose .footnotes li {
+  color: #8b949e;
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+}
+.prose .footnotes a {
+  color: #3fb950;
+}
+.prose sup a {
+  color: #3fb950;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0 2px;
+}
+
+/* ─── Category h2 banner (post pages) ─── */
+.prose h2 {
+  font-size: 1.125rem !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #3fb950 !important;
+  margin-top: 4rem !important;
+  margin-bottom: 2rem !important;
+  padding: 0.75rem 1rem !important;
+  background: linear-gradient(90deg, rgba(63, 185, 80, 0.08), transparent);
+  border-left: 3px solid #3fb950;
+  border-bottom: none !important;
+}
+.prose h2:first-child {
+  margin-top: 1rem !important;
+}
+
+/* Slide category badge — shown next to the counter while in slideshow mode */
+.slide-category-badge {
+  display: inline-block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #3fb950;
+  background: rgba(63, 185, 80, 0.12);
+  border: 1px solid rgba(63, 185, 80, 0.3);
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+}
+.slide-category-badge.hidden {
+  display: none;
+}
+
+/* ─── Slideshow ─── */
+body.slideshow-active {
+  padding-bottom: 140px;
+}
+/* Hide chrome that shouldn't be visible during a presentation */
+body.slideshow-active footer,
+body.slideshow-active aside,
+body.slideshow-active [data-slideshow-start],
+body.slideshow-active .footnotes,
+body.slideshow-active .post-hero,
+body.slideshow-active [data-share-copy],
+body.slideshow-active a[href="/posts"] {
+  display: none !important;
+}
+/* Hide the share row entirely (by hiding its parent border container) */
+body.slideshow-active article > div:last-child:not(.prose) {
+  display: none !important;
+}
+/* Let the article take the full width once the TOC sidebar is gone */
+body.slideshow-active main > div {
+  max-width: 1100px;
+}
+body.slideshow-active main .grid {
+  display: block !important;
+}
+/* Center and enlarge the active slide content */
+body.slideshow-active .lang-block {
+  padding: 2rem 0 4rem;
+  text-align: start;
+}
+body.slideshow-active .lang-block h2 {
+  font-size: 2.5rem !important;
+  line-height: 1.2 !important;
+  margin-top: 0 !important;
+  margin-bottom: 2rem !important;
+  padding-bottom: 1rem !important;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+body.slideshow-active .lang-block p,
+body.slideshow-active .lang-block li {
+  font-size: 1.25rem !important;
+  line-height: 1.7 !important;
+}
+body.slideshow-active .lang-block ul,
+body.slideshow-active .lang-block ol {
+  margin: 1.5rem 0 !important;
+}
+body.slideshow-active .lang-block .stat-block .stat-number {
+  font-size: 3rem !important;
+}
+body.slideshow-active .lang-block .stat-block .stat-label {
+  font-size: 0.95rem !important;
+}
+body.slideshow-active .lang-block .stat-block {
+  padding: 2rem 1.5rem !important;
+}
+body.slideshow-active .lang-block .callout {
+  font-size: 1.125rem !important;
+  padding: 1.5rem 1.75rem !important;
+}
+body.slideshow-active .lang-block .section-thumb {
+  width: 96px !important;
+  height: 96px !important;
+  padding: 12px !important;
+  margin-right: 0 !important;
+  display: inline-flex;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+body.slideshow-active .lang-block .section-thumb img {
+  border-radius: 4px;
+}
+
+/* ─── Heading Anchors ─── */
+.heading-anchor {
+  opacity: 0;
+  margin-left: 0.5rem;
+  color: #6E6E6E;
+  text-decoration: none;
+  font-weight: 400;
+  transition: opacity 0.2s;
+}
+h2:hover .heading-anchor,
+h3:hover .heading-anchor,
+h4:hover .heading-anchor {
+  opacity: 1;
 }
 
 /* ─── Reduced Motion ─── */

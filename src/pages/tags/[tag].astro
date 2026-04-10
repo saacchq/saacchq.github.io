@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import PostCard from "@/components/PostCard.astro";
+import { getUniqueTags } from "@/utils/getUniqueTags";
+import { getPostsByTag } from "@/utils/getPostsByTag";
+import { getReadingTime } from "@/utils/getReadingTime";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("posts");
+  const tags = getUniqueTags(allPosts);
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { tag, posts: getPostsByTag(allPosts, tag) },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<Layout title={`#${tag} — sa/acc`} description={`Posts tagged ${tag}`}>
+  <Header />
+
+  <main class="flex-grow z-10 pt-32 pb-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <a
+        href="/tags"
+        class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors mb-6"
+      >
+        <span>&larr;</span>
+        <span class="lang-en">All tags</span>
+        <span class="lang-ar">جميع الوسوم</span>
+      </a>
+
+      <div class="flex items-baseline gap-3 mb-2">
+        <h1 class="text-3xl font-bold text-[#e6edf3]">#{tag}</h1>
+        <span class="text-sm text-[#6E6E6E]">{posts.length}</span>
+      </div>
+      <p class="text-[#8b949e] mb-10">
+        <span class="lang-en">Posts tagged with #{tag}</span>
+        <span class="lang-ar">المقالات الموسومة بـ #{tag}</span>
+      </p>
+
+      <div class="flex flex-col gap-4">
+        {posts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            titleAr={post.data.titleAr}
+            description={post.data.description}
+            descriptionAr={post.data.descriptionAr}
+            pubDatetime={post.data.pubDatetime}
+            tags={post.data.tags}
+            readingTime={getReadingTime(post.body ?? "")}
+            slug={post.data.slug ?? post.id}
+          />
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

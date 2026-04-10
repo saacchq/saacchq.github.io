@@ -1,4 +1,5 @@
 export const config = {
+  postsPerPage: 10,
   title: "sa/acc — Accelerating AI & Tech in Saudi Arabia",
   titleAr: "sa/acc — تسريع الذكاء الاصطناعي والتقنية في السعودية",
   description: "Saudi Acceleration — Accelerating AI & tech in Saudi Arabia",
@@ -6,6 +7,8 @@ export const config = {
     "التسارع السعودي — تسريع الذكاء الاصطناعي والتقنية في السعودية",
   author: "sa/acc",
   url: "https://saacchq.org",
+  /** Public contact and Google Calendar subscribe id */
+  contactEmail: "hello@saacchq.org",
   social: {
     discord: "https://discord.gg/Ks4Dpdzkmn",
     github: "https://github.com/saacchq",

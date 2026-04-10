@@ -15,6 +15,13 @@ import { getTranslation } from "@/i18n";
     <!-- Right side -->
     <div class="flex items-center gap-6">
       <a
+        href="/posts"
+        class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+      >
+        <span class="lang-ar">{getTranslation("ar", "nav.posts")}</span>
+        <span class="lang-en">{getTranslation("en", "nav.posts")}</span>
+      </a>
+      <a
         href="/manifesto"
         class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
       >

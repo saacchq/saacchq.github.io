@@ -39,6 +39,11 @@
   "nav.lang": "عربي",
   "nav.join": "Join",
   "nav.manifesto": "Manifesto",
+  "nav.posts": "Posts",
+
+  "posts.title": "Posts",
+  "posts.subtitle": "Latest news and community posts",
+  "posts.noPostsYet": "No posts yet. Check back soon!",
 
   "footer.discord": "Discord",
   "footer.github": "GitHub"

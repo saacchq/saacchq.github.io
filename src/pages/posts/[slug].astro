@@ -1,0 +1,387 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import ShareButtons from "@/components/ShareButtons.astro";
+import { getReadingTime } from "@/utils/getReadingTime";
+import { postFilter } from "@/utils/postFilter";
+import { getTableOfContents } from "@/utils/getTableOfContents";
+import { config } from "@/config";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("posts");
+  return allPosts.filter(postFilter).map((post) => ({
+    params: { slug: post.data.slug ?? post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+const readingTime = getReadingTime(post.body ?? "");
+const toc = getTableOfContents(post.body ?? "");
+const slug = data.slug ?? post.id;
+const postUrl = new URL(`/posts/${slug}`, config.url).toString();
+const totalSlidesEn = toc.en.length;
+const totalSlidesAr = toc.ar.length;
+const hasSlideshow = totalSlidesEn > 0 || totalSlidesAr > 0;
+
+const dateStr = data.pubDatetime.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Layout title={`${data.title} — sa/acc`} description={data.description}>
+  <Header />
+
+  <main class="flex-grow z-10 pt-24 pb-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <!-- Back link -->
+      <a
+        href="/posts"
+        class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors mb-6"
+      >
+        <span>&larr;</span>
+        <span class="lang-en">Back to posts</span>
+        <span class="lang-ar">العودة للمقالات</span>
+      </a>
+
+      <!-- Hero -->
+      <header class="post-hero p-8 md:p-12 mb-8">
+        <div class="relative z-10">
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2 mb-5">
+            {data.tags.map((tag) => (
+              <a
+                href={`/tags/${tag.toLowerCase()}`}
+                class="text-[10px] font-bold uppercase tracking-widest text-[#3fb950] bg-[#3fb950]/10 px-2 py-0.5 rounded hover:bg-[#3fb950]/20 transition-colors"
+              >
+                {tag}
+              </a>
+            ))}
+          </div>
+
+          <!-- Title -->
+          <h1 class="text-3xl md:text-5xl font-bold text-[#e6edf3] mb-4 leading-tight">
+            <span class="lang-en">{data.title}</span>
+            <span class="lang-ar">{data.titleAr || data.title}</span>
+          </h1>
+
+          <!-- Description -->
+          <p class="text-base md:text-lg text-[#8b949e] mb-6 max-w-3xl">
+            <span class="lang-en">{data.description}</span>
+            <span class="lang-ar">{data.descriptionAr || data.description}</span>
+          </p>
+
+          <!-- Meta -->
+          <div class="flex flex-wrap items-center gap-3 text-xs text-[#6E6E6E]">
+            <span class="text-[#3fb950]">{data.author}</span>
+            <span>·</span>
+            <time>
+              <span class="lang-en">{dateStr}</span>
+              <span class="lang-ar">{dateStrAr}</span>
+            </time>
+            <span>·</span>
+            <span>
+              <span class="lang-en">{readingTime} min read</span>
+              <span class="lang-ar">{readingTime} دقائق قراءة</span>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Slideshow toggle -->
+      {hasSlideshow && (
+        <div class="flex justify-end mb-6">
+          <button
+            type="button"
+            data-slideshow-start
+            class="inline-flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950] hover:text-[#3fb950] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            <span class="lang-en">Slideshow</span>
+            <span class="lang-ar">عرض الشرائح</span>
+          </button>
+        </div>
+      )}
+
+      <!-- Layout: TOC sidebar + Content -->
+      <div class="grid lg:grid-cols-[220px_1fr] gap-12">
+        <!-- Sticky TOC (desktop) -->
+        {hasSlideshow && (
+          <aside class="hidden lg:block">
+            <div class="sticky top-24">
+              <p class="text-[10px] font-bold uppercase tracking-widest text-[#6E6E6E] mb-4">
+                <span class="lang-en">On this page</span>
+                <span class="lang-ar">في هذه الصفحة</span>
+              </p>
+              {toc.en.length > 0 && (
+                <nav class="lang-en">
+                  <ul class="space-y-2 text-xs">
+                    {toc.en.map((entry) => (
+                      <li>
+                        <a
+                          href={`#${entry.id}`}
+                          class="block text-[#8b949e] hover:text-[#3fb950] transition-colors leading-snug"
+                        >
+                          {entry.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
+              {toc.ar.length > 0 && (
+                <nav class="lang-ar">
+                  <ul class="space-y-2 text-xs">
+                    {toc.ar.map((entry) => (
+                      <li>
+                        <a
+                          href={`#${entry.id}`}
+                          class="block text-[#8b949e] hover:text-[#3fb950] transition-colors leading-snug"
+                        >
+                          {entry.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
+            </div>
+          </aside>
+        )}
+
+        <!-- Content -->
+        <article data-post-article>
+          <div class="prose prose-invert prose-sm md:prose-base max-w-none
+            prose-headings:text-[#e6edf3] prose-headings:font-bold prose-headings:scroll-mt-24
+            prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-4 prose-h3:pb-2 prose-h3:border-b prose-h3:border-[#252525]
+            prose-p:text-[#c9d1d9] prose-p:leading-relaxed
+            prose-a:text-[#3fb950] prose-a:no-underline hover:prose-a:underline
+            prose-strong:text-[#e6edf3]
+            prose-code:text-[#e6edf3] prose-code:bg-[#252525] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:before:content-none prose-code:after:content-none
+            prose-blockquote:border-[#3fb950] prose-blockquote:text-[#8b949e]
+            prose-hr:border-[#252525] prose-hr:my-12
+            prose-table:text-[#c9d1d9]
+            prose-th:text-[#e6edf3] prose-th:border-[#252525]
+            prose-td:border-[#252525]
+            prose-li:text-[#c9d1d9]
+            prose-img:rounded-lg
+          ">
+            <Content />
+          </div>
+
+          <ShareButtons title={data.title} url={postUrl} />
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- Slideshow overlay controls -->
+  {hasSlideshow && (
+    <div data-slideshow-controls class="fixed inset-x-0 bottom-0 z-50 hidden bg-[#0F0F0F]/95 backdrop-blur-md border-t border-[#252525]">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+        <button
+          type="button"
+          data-slideshow-prev
+          class="flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950] hover:text-[#3fb950] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          <span class="lang-en">Prev</span>
+          <span class="lang-ar">السابق</span>
+        </button>
+
+        <div class="flex items-center gap-3 text-xs text-[#8b949e]">
+          <span data-slideshow-counter class="font-mono">1 / 1</span>
+          <span data-slideshow-category class="slide-category-badge hidden"></span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            data-slideshow-next
+            class="flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950] hover:text-[#3fb950] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            <span class="lang-en">Next</span>
+            <span class="lang-ar">التالي</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <button
+            type="button"
+            data-slideshow-exit
+            aria-label="Exit slideshow"
+            class="flex items-center justify-center w-10 h-10 bg-[#171717] border border-[#252525] hover:border-[#f85149] hover:text-[#f85149] rounded-lg text-[#8b949e] transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="h-1 bg-[#252525]">
+        <div data-slideshow-progress class="h-full bg-[#3fb950] transition-all duration-200" style="width: 0%"></div>
+      </div>
+    </div>
+  )}
+
+  <Footer />
+</Layout>
+
+<script>
+  // ─── Slideshow ───
+  // When activated, the article is filtered down to one h3-story at a time.
+  // The active language block (.lang-block) is walked once: every h2 sets the
+  // current category (e.g. "🔥 Drama"), and each h3 starts a new slide that
+  // also captures every following sibling until the next h3 or h2.
+  // Non-slide elements (the h2 banners themselves and any preamble) are
+  // tracked separately so we can hide them in slideshow mode and restore them
+  // on exit.
+  interface Slide {
+    elements: HTMLElement[];
+    category: string;
+  }
+
+  const article = document.querySelector<HTMLElement>("[data-post-article]");
+  const startBtn = document.querySelector<HTMLButtonElement>("[data-slideshow-start]");
+  const controls = document.querySelector<HTMLElement>("[data-slideshow-controls]");
+  const prevBtn = document.querySelector<HTMLButtonElement>("[data-slideshow-prev]");
+  const nextBtn = document.querySelector<HTMLButtonElement>("[data-slideshow-next]");
+  const exitBtn = document.querySelector<HTMLButtonElement>("[data-slideshow-exit]");
+  const counter = document.querySelector<HTMLElement>("[data-slideshow-counter]");
+  const categoryBadge = document.querySelector<HTMLElement>("[data-slideshow-category]");
+  const progress = document.querySelector<HTMLElement>("[data-slideshow-progress]");
+
+  let slides: Slide[] = [];
+  let nonSlideElements: HTMLElement[] = [];
+  let activeIndex = 0;
+  let isActive = false;
+
+  function getActiveLangBlock(): HTMLElement | null {
+    if (!article) return null;
+    const blocks = article.querySelectorAll<HTMLElement>(".lang-block");
+    for (const block of blocks) {
+      if (block.offsetParent !== null) return block;
+    }
+    return null;
+  }
+
+  function buildSlides(container: HTMLElement): { slides: Slide[]; nonSlide: HTMLElement[] } {
+    const result: Slide[] = [];
+    const nonSlide: HTMLElement[] = [];
+    let currentCategory = "";
+    let current: Slide | null = null;
+    for (const child of Array.from(container.children) as HTMLElement[]) {
+      if (child.tagName === "H2") {
+        // Category banner — record it, hide it during slideshow, end any open slide
+        currentCategory = (child.textContent || "").trim();
+        nonSlide.push(child);
+        current = null;
+      } else if (child.tagName === "H3") {
+        // Start a new story slide
+        current = { elements: [child], category: currentCategory };
+        result.push(current);
+      } else if (current) {
+        current.elements.push(child);
+      } else {
+        // Element before the first h3 (e.g. preamble) — treat as non-slide
+        nonSlide.push(child);
+      }
+    }
+    return { slides: result, nonSlide };
+  }
+
+  function showSlide(index: number) {
+    if (!slides.length) return;
+    activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+    // Hide every element managed by the slideshow (slides + non-slide)
+    for (const el of nonSlideElements) el.style.display = "none";
+    for (const slide of slides) {
+      for (const el of slide.elements) el.style.display = "none";
+    }
+    // Show only the active slide's elements
+    for (const el of slides[activeIndex].elements) el.style.display = "";
+    // Counter + category badge
+    if (counter) counter.textContent = `${activeIndex + 1} / ${slides.length}`;
+    if (categoryBadge) {
+      const cat = slides[activeIndex].category;
+      if (cat) {
+        categoryBadge.textContent = cat;
+        categoryBadge.classList.remove("hidden");
+      } else {
+        categoryBadge.classList.add("hidden");
+      }
+    }
+    if (progress) progress.style.width = `${((activeIndex + 1) / slides.length) * 100}%`;
+    if (prevBtn) prevBtn.disabled = activeIndex === 0;
+    if (nextBtn) nextBtn.disabled = activeIndex === slides.length - 1;
+    // Scroll to top of the active slide
+    slides[activeIndex].elements[0]?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function startSlideshow() {
+    const block = getActiveLangBlock();
+    if (!block) return;
+    const built = buildSlides(block);
+    slides = built.slides;
+    nonSlideElements = built.nonSlide;
+    if (!slides.length) return;
+    isActive = true;
+    document.body.classList.add("slideshow-active");
+    controls?.classList.remove("hidden");
+    showSlide(0);
+  }
+
+  function exitSlideshow() {
+    if (!isActive) return;
+    isActive = false;
+    document.body.classList.remove("slideshow-active");
+    controls?.classList.add("hidden");
+    // Restore visibility of every element the slideshow touched
+    for (const el of nonSlideElements) el.style.display = "";
+    for (const slide of slides) {
+      for (const el of slide.elements) el.style.display = "";
+    }
+    if (categoryBadge) categoryBadge.classList.add("hidden");
+    slides = [];
+    nonSlideElements = [];
+    activeIndex = 0;
+  }
+
+  startBtn?.addEventListener("click", startSlideshow);
+  prevBtn?.addEventListener("click", () => showSlide(activeIndex - 1));
+  nextBtn?.addEventListener("click", () => showSlide(activeIndex + 1));
+  exitBtn?.addEventListener("click", exitSlideshow);
+
+  document.addEventListener("keydown", (e) => {
+    if (!isActive) return;
+    if (e.key === "Escape") exitSlideshow();
+    if (e.key === "ArrowRight") showSlide(activeIndex + 1);
+    if (e.key === "ArrowLeft") showSlide(activeIndex - 1);
+  });
+
+  // If the user toggles the language while in slideshow mode, exit so the
+  // article reverts to a clean state and they can re-enter for the new lang.
+  const langObserver = new MutationObserver(() => {
+    if (isActive) exitSlideshow();
+  });
+  langObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["lang"],
+  });
+</script>

@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+  titleAr?: string;
+  description: string;
+  descriptionAr?: string;
+  pubDatetime: Date;
+  tags: string[];
+  readingTime: number;
+  slug: string;
+}
+
+const { title, titleAr, description, descriptionAr, pubDatetime, tags, readingTime, slug } = Astro.props;
+
+const dateStr = pubDatetime.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+const dateStrAr = pubDatetime.toLocaleDateString("ar-SA", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<a
+  href={`/posts/${slug}`}
+  class="block bg-[#171717] border border-[#252525] rounded-lg p-6 hover:border-[#3fb950]/50 transition-colors group"
+>
+  <!-- Tags -->
+  <div class="flex flex-wrap gap-2 mb-3">
+    {tags.map((tag) => (
+      <span class="text-[10px] font-bold uppercase tracking-widest text-[#3fb950] bg-[#3fb950]/10 px-2 py-0.5 rounded">
+        {tag}
+      </span>
+    ))}
+  </div>
+
+  <!-- Title -->
+  <h2 class="text-lg font-bold text-[#e6edf3] group-hover:text-[#3fb950] transition-colors mb-2">
+    <span class="lang-en">{title}</span>
+    <span class="lang-ar">{titleAr || title}</span>
+  </h2>
+
+  <!-- Description -->
+  <p class="text-sm text-[#8b949e] mb-4 line-clamp-2">
+    <span class="lang-en">{description}</span>
+    <span class="lang-ar">{descriptionAr || description}</span>
+  </p>
+
+  <!-- Meta -->
+  <div class="flex items-center gap-3 text-xs text-[#6E6E6E]">
+    <time>
+      <span class="lang-en">{dateStr}</span>
+      <span class="lang-ar">{dateStrAr}</span>
+    </time>
+    <span>·</span>
+    <span>
+      <span class="lang-en">{readingTime} min read</span>
+      <span class="lang-ar">{readingTime} دقائق قراءة</span>
+    </span>
+  </div>
+</a>

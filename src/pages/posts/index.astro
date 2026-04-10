@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import PostCard from "@/components/PostCard.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getReadingTime } from "@/utils/getReadingTime";
+import { getTranslation } from "@/i18n";
+
+const allPosts = await getCollection("posts");
+const sortedPosts = getSortedPosts(allPosts);
+---
+
+<Layout title="Posts — sa/acc" description="Latest news and community posts from sa/acc">
+  <Header />
+
+  <main class="flex-grow z-10 pt-32 pb-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <h1 class="text-3xl font-bold mb-2 text-[#e6edf3]">
+        <span class="lang-en">{getTranslation("en", "posts.title")}</span>
+        <span class="lang-ar">{getTranslation("ar", "posts.title")}</span>
+      </h1>
+      <p class="text-[#8b949e] mb-10">
+        <span class="lang-en">{getTranslation("en", "posts.subtitle")}</span>
+        <span class="lang-ar">{getTranslation("ar", "posts.subtitle")}</span>
+      </p>
+
+      {sortedPosts.length === 0 ? (
+        <p class="text-[#6E6E6E] text-center py-16">
+          <span class="lang-en">{getTranslation("en", "posts.noPostsYet")}</span>
+          <span class="lang-ar">{getTranslation("ar", "posts.noPostsYet")}</span>
+        </p>
+      ) : (
+        <div class="flex flex-col gap-4">
+          {sortedPosts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              titleAr={post.data.titleAr}
+              description={post.data.description}
+              descriptionAr={post.data.descriptionAr}
+              pubDatetime={post.data.pubDatetime}
+              tags={post.data.tags}
+              readingTime={getReadingTime(post.body ?? "")}
+              slug={post.data.slug ?? post.id}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

@@ -3,7 +3,7 @@ PRODID:-//Google Inc//Google Calendar 70.9054//EN
 VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:saacchq@gmail.com
+X-WR-CALNAME:hello@saacchq.org
 X-WR-TIMEZONE:Asia/Riyadh
 BEGIN:VTIMEZONE
 TZID:Asia/Riyadh
