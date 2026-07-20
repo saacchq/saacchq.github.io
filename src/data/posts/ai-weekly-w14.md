@@ -7,13 +7,8 @@ pubDatetime: 2026-04-10T00:00:00.000Z
 author: sa/acc
 modDatetime: 2026-04-11T00:51:00.000Z
 tags: 
-  - ai-news
-  - drama
-  - releases
-  - money
-  - research
-  - infrastructure
-  - policy
+  - ai-weekly
+  - news
 slug: ai-weekly-w14
 ---
 

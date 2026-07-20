@@ -1,0 +1,41 @@
+---
+interface Props {
+  name: string;
+  avatar?: string;
+  size?: number;
+  class?: string;
+}
+
+const { name, avatar, size = 48, class: className = "" } = Astro.props;
+
+// First letters of the first two words → monogram fallback.
+const initials = name
+  .split(/\s+/)
+  .slice(0, 2)
+  .map((w) => w[0]?.toUpperCase() ?? "")
+  .join("");
+---
+
+<div
+  class:list={[
+    "relative flex-shrink-0 overflow-hidden rounded-lg bg-[#252525] flex items-center justify-center",
+    className,
+  ]}
+  style={`width:${size}px;height:${size}px`}
+>
+  <span class="font-bold text-[#8b949e] select-none" style={`font-size:${Math.round(size * 0.36)}px`}>
+    {initials}
+  </span>
+  {avatar && (
+    <img
+      src={avatar}
+      alt={name}
+      width={size}
+      height={size}
+      loading="lazy"
+      decoding="async"
+      class="absolute inset-0 h-full w-full object-cover"
+      onerror="this.style.display='none'"
+    />
+  )}
+</div>

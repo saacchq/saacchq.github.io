@@ -3,39 +3,46 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { getUniqueTags } from "@/utils/getUniqueTags";
 import { getPostsByTag } from "@/utils/getPostsByTag";
+import { getAllSeries } from "@/utils/getSeries";
+import { config } from "@/config";
+import { getTranslation } from "@/i18n";
 
 const allPosts = await getCollection("posts");
-const tags = getUniqueTags(allPosts);
-const tagsWithCounts = tags.map((tag) => ({
-  tag,
-  count: getPostsByTag(allPosts, tag).length,
+const count = (tag: string) => getPostsByTag(allPosts, tag).length;
+
+// Canonical topics (fixed vocabulary) + per-series tags, each with a post count.
+const topics = config.topics.map((tag) => ({ tag, count: count(tag) }));
+const seriesTags = getAllSeries().map((s) => ({
+  tag: s.key,
+  name: s.name,
+  nameAr: s.nameAr,
+  count: count(s.key),
 }));
 ---
 
-<Layout title="Tags — sa/acc" description="Browse posts by tag">
+<Layout title="Tags — sa/acc" description="Browse posts by topic and series.">
   <Header />
 
   <main class="flex-grow z-10 pt-32 pb-24">
     <div class="max-w-3xl mx-auto px-6">
       <h1 class="text-3xl font-bold mb-2 text-[#e6edf3]">
-        <span class="lang-en">Tags</span>
-        <span class="lang-ar">الوسوم</span>
+        <span class="lang-en">{getTranslation("en", "tags.title")}</span>
+        <span class="lang-ar">{getTranslation("ar", "tags.title")}</span>
       </h1>
-      <p class="text-[#8b949e] mb-10">
-        <span class="lang-en">Browse posts by tag</span>
-        <span class="lang-ar">تصفح المقالات حسب الوسم</span>
+      <p class="text-[#8b949e] mb-12">
+        <span class="lang-en">{getTranslation("en", "tags.subtitle")}</span>
+        <span class="lang-ar">{getTranslation("ar", "tags.subtitle")}</span>
       </p>
 
-      {tagsWithCounts.length === 0 ? (
-        <p class="text-[#6E6E6E] text-center py-16">
-          <span class="lang-en">No tags yet.</span>
-          <span class="lang-ar">لا توجد وسوم بعد.</span>
-        </p>
-      ) : (
-        <div class="flex flex-wrap gap-3">
-          {tagsWithCounts.map(({ tag, count }) => (
+      <!-- Topics -->
+      <h2 class="text-[10px] font-bold uppercase tracking-widest text-[#6E6E6E] mb-4">
+        <span class="lang-en">{getTranslation("en", "tags.topics")}</span>
+        <span class="lang-ar">{getTranslation("ar", "tags.topics")}</span>
+      </h2>
+      <div class="flex flex-wrap gap-3 mb-12">
+        {topics.map(({ tag, count }) =>
+          count > 0 ? (
             <a
               href={`/tags/${tag}`}
               class="inline-flex items-center gap-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950]/50 rounded-lg px-4 py-2 transition-colors"
@@ -43,8 +50,40 @@ const tagsWithCounts = tags.map((tag) => ({
               <span class="text-xs font-bold uppercase tracking-widest text-[#3fb950]">{tag}</span>
               <span class="text-xs text-[#6E6E6E]">{count}</span>
             </a>
-          ))}
-        </div>
+          ) : (
+            <span
+              class="inline-flex items-center gap-2 bg-[#131313] border border-[#1c1c1c] rounded-lg px-4 py-2 opacity-50 cursor-default"
+              title="No posts yet"
+            >
+              <span class="text-xs font-bold uppercase tracking-widest text-[#6E6E6E]">{tag}</span>
+              <span class="text-xs text-[#6E6E6E]">0</span>
+            </span>
+          )
+        )}
+      </div>
+
+      <!-- Series -->
+      {seriesTags.length > 0 && (
+        <>
+          <h2 class="text-[10px] font-bold uppercase tracking-widest text-[#6E6E6E] mb-4">
+            <span class="lang-en">{getTranslation("en", "tags.seriesGroup")}</span>
+            <span class="lang-ar">{getTranslation("ar", "tags.seriesGroup")}</span>
+          </h2>
+          <div class="flex flex-wrap gap-3">
+            {seriesTags.map(({ tag, name, nameAr, count }) => (
+              <a
+                href={`/tags/${tag}`}
+                class="inline-flex items-center gap-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950]/50 rounded-lg px-4 py-2 transition-colors"
+              >
+                <span class="text-xs font-bold text-[#3fb950]">
+                  <span class="lang-en">{name}</span>
+                  <span class="lang-ar">{nameAr || name}</span>
+                </span>
+                <span class="text-xs text-[#6E6E6E]">{count}</span>
+              </a>
+            ))}
+          </div>
+        </>
       )}
     </div>
   </main>

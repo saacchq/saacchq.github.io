@@ -1,8 +1,16 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Manifesto from "@/components/Manifesto.astro";
 import Footer from "@/components/Footer.astro";
+import PostCard from "@/components/PostCard.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getReadingTime } from "@/utils/getReadingTime";
+import { getTranslation } from "@/i18n";
+
+const allPosts = await getCollection("posts");
+const latestPosts = getSortedPosts(allPosts).slice(0, 3);
 ---
 
 <Layout>
@@ -10,6 +18,39 @@ import Footer from "@/components/Footer.astro";
 
   <main class="flex-grow z-10 pt-32 pb-24">
     <Manifesto />
+
+    {latestPosts.length > 0 && (
+      <section class="px-6 max-w-4xl mx-auto mb-24">
+        <div class="flex items-baseline justify-between mb-8">
+          <h2 class="text-2xl font-bold text-[#e6edf3]">
+            <span class="lang-en">{getTranslation("en", "posts.latest")}</span>
+            <span class="lang-ar">{getTranslation("ar", "posts.latest")}</span>
+          </h2>
+          <a
+            href="/posts"
+            class="text-xs font-bold uppercase tracking-widest text-[#3fb950] hover:underline"
+          >
+            <span class="lang-en">{getTranslation("en", "posts.viewAll")} &rarr;</span>
+            <span class="lang-ar">{getTranslation("ar", "posts.viewAll")} &larr;</span>
+          </a>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          {latestPosts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              titleAr={post.data.titleAr}
+              description={post.data.description}
+              descriptionAr={post.data.descriptionAr}
+              pubDatetime={post.data.pubDatetime}
+              tags={post.data.tags}
+              readingTime={getReadingTime(post.body ?? "")}
+              slug={post.data.slug ?? post.id}
+            />
+          ))}
+        </div>
+      </section>
+    )}
   </main>
 
   <Footer />

@@ -8,6 +8,7 @@ import ShareButtons from "@/components/ShareButtons.astro";
 import { getReadingTime } from "@/utils/getReadingTime";
 import { postFilter } from "@/utils/postFilter";
 import { getTableOfContents } from "@/utils/getTableOfContents";
+import { getSeriesFromTags } from "@/utils/getSeries";
 import { config } from "@/config";
 
 export async function getStaticPaths() {
@@ -28,6 +29,7 @@ const { Content } = await render(post);
 const readingTime = getReadingTime(post.body ?? "");
 const toc = getTableOfContents(post.body ?? "");
 const slug = data.slug ?? post.id;
+const series = getSeriesFromTags(data.tags);
 const postUrl = new URL(`/posts/${slug}`, config.url).toString();
 const totalSlidesEn = toc.en.length;
 const totalSlidesAr = toc.ar.length;
@@ -45,7 +47,18 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
 });
 ---
 
-<Layout title={`${data.title} — sa/acc`} description={data.description}>
+<Layout
+  title={`${data.title} — sa/acc`}
+  description={data.description}
+  ogType="article"
+  image={data.coverImage}
+  article={{
+    publishedTime: data.pubDatetime.toISOString(),
+    modifiedTime: data.modDatetime?.toISOString(),
+    author: series?.author ?? data.author,
+    tags: [...data.tags],
+  }}
+>
   <Header />
 
   <main class="flex-grow z-10 pt-24 pb-24">
@@ -89,7 +102,18 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
 
           <!-- Meta -->
           <div class="flex flex-wrap items-center gap-3 text-xs text-[#6E6E6E]">
-            <span class="text-[#3fb950]">{data.author}</span>
+            {series ? (
+              <a
+                href={series.authorUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-[#3fb950] hover:underline inline-flex items-center gap-1"
+              >
+                {series.author} <span class="text-[#6E6E6E]">(@{series.handle})</span>
+              </a>
+            ) : (
+              <span class="text-[#3fb950]">{data.author}</span>
+            )}
             <span>·</span>
             <time>
               <span class="lang-en">{dateStr}</span>
@@ -240,6 +264,27 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
     </div>
   )}
 
+  <!-- Image lightbox overlay -->
+  <div
+    data-lightbox
+    class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4 cursor-zoom-out"
+  >
+    <img
+      data-lightbox-img
+      src=""
+      alt=""
+      class="max-w-[96vw] max-h-[92vh] object-contain rounded-lg shadow-2xl cursor-default"
+    />
+    <button
+      type="button"
+      data-lightbox-close
+      aria-label="Close image"
+      class="fixed top-4 right-4 flex items-center justify-center w-10 h-10 bg-[#171717] border border-[#252525] hover:border-[#f85149] hover:text-[#f85149] rounded-lg text-[#8b949e] transition-colors"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
   <Footer />
 </Layout>
 
@@ -383,5 +428,77 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
   langObserver.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["lang"],
+  });
+</script>
+
+<script>
+  // ─── Image lightbox ───
+  // Click any image in the article to view it full screen. Close by clicking
+  // the backdrop, the close button, or pressing Escape.
+  const lightbox = document.querySelector<HTMLElement>("[data-lightbox]");
+  const lightboxImg = document.querySelector<HTMLImageElement>("[data-lightbox-img]");
+  const lightboxClose = document.querySelector<HTMLButtonElement>("[data-lightbox-close]");
+  const postArticle = document.querySelector<HTMLElement>("[data-post-article]");
+
+  let lastFocused: HTMLElement | null = null;
+
+  function openLightbox(img: HTMLImageElement) {
+    if (!lightbox || !lightboxImg) return;
+    lastFocused = document.activeElement as HTMLElement | null;
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex");
+    document.body.style.overflow = "hidden";
+    // Move focus into the dialog so keyboard users can close it / it's trapped.
+    lightboxClose?.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightbox || !lightboxImg) return;
+    lightbox.classList.add("hidden");
+    lightbox.classList.remove("flex");
+    lightboxImg.src = "";
+    document.body.style.overflow = "";
+    // Return focus to the image that opened it.
+    lastFocused?.focus();
+    lastFocused = null;
+  }
+
+  const isOpen = () => !!lightbox && !lightbox.classList.contains("hidden");
+
+  if (postArticle) {
+    for (const img of postArticle.querySelectorAll<HTMLImageElement>("img")) {
+      // Skip tiny inline heading logos — only real figures/content images zoom.
+      if (img.closest(".section-thumb")) continue;
+      img.style.cursor = "zoom-in";
+      // Make the image operable by keyboard as well as mouse.
+      img.setAttribute("role", "button");
+      img.setAttribute("tabindex", "0");
+      img.setAttribute("aria-label", `View image full screen${img.alt ? `: ${img.alt}` : ""}`);
+      img.addEventListener("click", () => openLightbox(img));
+      img.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openLightbox(img);
+        }
+      });
+    }
+  }
+
+  // Backdrop click closes; clicking the image itself does not.
+  lightbox?.addEventListener("click", (e) => {
+    if (e.target === lightboxImg) return;
+    closeLightbox();
+  });
+  lightboxClose?.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (e) => {
+    if (!isOpen()) return;
+    if (e.key === "Escape") closeLightbox();
+    // Simple focus trap: keep focus on the close button.
+    if (e.key === "Tab") {
+      e.preventDefault();
+      lightboxClose?.focus();
+    }
   });
 </script>

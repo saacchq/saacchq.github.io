@@ -1,0 +1,79 @@
+---
+import { config } from "@/config";
+import { getTranslation } from "@/i18n";
+
+// Dormant unless a guild ID is configured (see config.meeting).
+const guildId = config.meeting.discordGuildId;
+const channelId = config.meeting.discordVoiceChannelId;
+---
+
+{
+  guildId && (
+    <a
+      data-live-banner
+      data-guild-id={guildId}
+      data-channel-id={channelId}
+      href={config.social.discord}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 items-center gap-3 rounded-full border border-[#3fb950]/60 bg-[#171717]/95 backdrop-blur px-5 py-3 shadow-xl shadow-black/40 hover:border-[#3fb950] transition-colors"
+    >
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#3fb950] opacity-75" />
+        <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#3fb950]" />
+      </span>
+      <span class="text-xs font-bold uppercase tracking-widest text-[#e6edf3]">
+        <span class="lang-en">{getTranslation("en", "live.now")}</span>
+        <span class="lang-ar">{getTranslation("ar", "live.now")}</span>
+      </span>
+      <span class="text-[11px] text-[#3fb950] font-bold">
+        <span class="lang-en">{getTranslation("en", "live.join")} &rarr;</span>
+        <span class="lang-ar">{getTranslation("ar", "live.join")} &larr;</span>
+      </span>
+    </a>
+  )
+}
+
+<script>
+  // Poll the public Discord Server Widget and reveal the banner when someone is
+  // in the meeting voice channel. No auth/token needed — widget.json is public
+  // (requires the server Widget to be enabled). Fails silently (banner stays
+  // hidden) on error / CORS / widget disabled.
+  const banner = document.querySelector<HTMLAnchorElement>("[data-live-banner]");
+  if (banner) {
+    const guildId = banner.dataset.guildId;
+    const channelId = banner.dataset.channelId;
+
+    async function check() {
+      if (!guildId) return;
+      try {
+        const res = await fetch(`https://discord.com/api/guilds/${guildId}/widget.json`, {
+          headers: { accept: "application/json" },
+        });
+        if (!res.ok) return hide();
+        const data = await res.json();
+        const inVoice = (data.members ?? []).filter(
+          (m: { channel_id?: string }) =>
+            m.channel_id && (!channelId || m.channel_id === channelId)
+        );
+        if (inVoice.length > 0) {
+          if (data.instant_invite) banner!.href = data.instant_invite;
+          banner!.classList.remove("hidden");
+          banner!.classList.add("flex");
+        } else {
+          hide();
+        }
+      } catch {
+        hide();
+      }
+    }
+
+    function hide() {
+      banner!.classList.add("hidden");
+      banner!.classList.remove("flex");
+    }
+
+    check();
+    setInterval(check, 60_000);
+  }
+</script>

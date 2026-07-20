@@ -6,13 +6,8 @@ descriptionAr: جولة تمويل OpenAI بـ 122 مليار دولار، تس�
 pubDatetime: 2026-04-03T00:00:00.000Z
 author: sa/acc
 tags: 
-  - ai-news
-  - drama
-  - releases
-  - money
-  - research
-  - infrastructure
-  - policy
+  - ai-weekly
+  - news
 slug: ai-weekly-w13
 ---
 

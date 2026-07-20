@@ -22,6 +22,20 @@ import { getTranslation } from "@/i18n";
         <span class="lang-en">{getTranslation("en", "nav.posts")}</span>
       </a>
       <a
+        href="/series"
+        class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+      >
+        <span class="lang-ar">{getTranslation("ar", "nav.series")}</span>
+        <span class="lang-en">{getTranslation("en", "nav.series")}</span>
+      </a>
+      <a
+        href="/members"
+        class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+      >
+        <span class="lang-ar">{getTranslation("ar", "nav.members")}</span>
+        <span class="lang-en">{getTranslation("en", "nav.members")}</span>
+      </a>
+      <a
         href="/manifesto"
         class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
       >
@@ -30,8 +44,8 @@ import { getTranslation } from "@/i18n";
       </a>
       <LangToggle />
       <a
-        href="#join"
-        class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#3fb950] border border-[#3fb950] hover:bg-[#3fb950] hover:text-[#0d1117] transition-all duration-200"
+        href="/contribute"
+        class="inline-flex items-center justify-center px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#3fb950] border border-[#3fb950] hover:bg-[#3fb950] hover:text-[#0d1117] transition-all duration-200"
       >
         <span class="lang-ar">{getTranslation("ar", "nav.join")}</span>
         <span class="lang-en">{getTranslation("en", "nav.join")}</span>

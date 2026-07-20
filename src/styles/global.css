@@ -119,6 +119,19 @@ html[lang="ar"] .lang-block.lang-ar {
   display: block;
 }
 
+/* ─── Accessibility: visible keyboard focus ─── */
+:focus-visible {
+  outline: 2px solid #3fb950;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+/* Only for keyboard users — mouse clicks don't trigger :focus-visible. */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* ─── Post Hero ─── */
 .post-hero {
   background:

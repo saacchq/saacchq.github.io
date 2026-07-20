@@ -1,4 +1,7 @@
 ---
+import { getSeriesFromTags } from "@/utils/getSeries";
+import { getTranslation } from "@/i18n";
+
 interface Props {
   title: string;
   titleAr?: string;
@@ -11,6 +14,7 @@ interface Props {
 }
 
 const { title, titleAr, description, descriptionAr, pubDatetime, tags, readingTime, slug } = Astro.props;
+const series = getSeriesFromTags(tags);
 
 const dateStr = pubDatetime.toLocaleDateString("en-US", {
   year: "numeric",
@@ -57,8 +61,14 @@ const dateStrAr = pubDatetime.toLocaleDateString("ar-SA", {
     </time>
     <span>·</span>
     <span>
-      <span class="lang-en">{readingTime} min read</span>
-      <span class="lang-ar">{readingTime} دقائق قراءة</span>
+      <span class="lang-en">{readingTime} {getTranslation("en", "post.minRead")}</span>
+      <span class="lang-ar">{readingTime} {getTranslation("ar", "post.minRead")}</span>
     </span>
+    {series && (
+      <>
+        <span>·</span>
+        <span class="text-[#8b949e]">{series.author} (@{series.handle})</span>
+      </>
+    )}
   </div>
 </a>

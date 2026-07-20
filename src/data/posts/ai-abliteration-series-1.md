@@ -3,17 +3,13 @@ title: "AI Abliteration Series | 1. Introduction and Abliterating Models"
 titleAr: ""
 description: "Practical article on running abliterated LLM models. Article 1"
 descriptionAr: ""
-pubDatetime: 2026-07-7T00:00:00.000Z
+pubDatetime: 2026-07-07T00:00:00.000Z
 author: Yousef Altaher
-modDatetime: 2026-07-7T00:51:00.000Z
+modDatetime: 2026-07-07T00:51:00.000Z
 tags: 
-  - AI
-  - Practical
-  - Workshop
-  - Abliteration
-  - Research
-  - Infrastructure
-  - Policy
+  - ai-abliteration
+  - engineering
+  - research
 slug: ai-abliteration-series-1
 ---
 
@@ -22,85 +18,108 @@ slug: ai-abliteration-series-1
 <div class="lang-block lang-en">
 
 
-## 🚀 Introduction
+## 🧪 AI Abliteration · Part 1
+
+### 🚀 Introduction
+
+**Abliterated models** are large language models modified to minimize — to the point of full removal — their refusal rate when asked questions that go against their "safety guidelines." Abliteration is one of a family of methods that aim to maximize the value of open-source models by removing any type of censorship, often referred to as safety guidelines, from such models. The process also allows a thorough examination of how LLMs work under the hood. Abliteration can be applied to any available model, without constraints or re-training.
 
 
-**Abliterated models** are large language models that are modified to minimize, to the point of full removal, of their refusal rate when asked questions against their “safety guidelines”. Abliteration is one type of methods that aims to maximize the value of open source models, and remove any type of censorship, often refereed to as a safety guidelines, from such models. The process also allows a thorough examination of how LLMs work under the hood. Abliteration can be done on any available model, without constrains or re-training.
+### 🔧 How it works
+
+Despite the description, abliterating a model is quite easy and simple. First, a list of prompts designed to trigger the safety response is generated and fed to the selected model. During the activation of the neural network, the tool monitors the parts of the network responsible for triggering the refusal response and down-regulates them, making them fire less and effectively bypassing them. It is almost a surgical operation targeted at a specific set of neurons.
 
 
-## 🔧 How it works
+### 🖥️ Demo
 
-Despite the description, abliterating a model is quite easy and simple. First, a list containing prompts that aims to trigger the safety response is generated, and fed to the selected model. During the activation of the neural network, the tool monitor the parts of the neural network that is responsible for triggering the refusal response, and down regulate them, making them fire less, leading to them being bypassed. Almost a surgical operation that is targeted at a specific set of neural network.
+We are going to use [p-e-w/heretic](https://github.com/p-e-w/heretic) to abliterate `Qwen3.5-0.8B`.
+
+First, install Heretic (preferably inside a virtual environment):
+
+```bash
+pip install -U heretic-llm
+```
+
+Make sure all requirements are installed, especially `torch` and `torchvision`.
+
+Then run it against any model:
+
+```bash
+heretic Qwen/Qwen3.5-0.8B
+```
+
+This runs Heretic with the default prompt lists.
+
+<figure class="post-figure">
+<img src="/assets/abliteration_series/1/loading.png" alt="Heretic abliterating a model" />
+<figcaption>Heretic processing the default prompt lists while abliterating the model.</figcaption>
+</figure>
+
+Once processing is done, we get the following screen:
+
+<figure class="post-figure">
+<img src="/assets/abliteration_series/1/trials.png" alt="Heretic abliteration trial results" />
+<figcaption>Trial results — each run reports its refusal rate and KL divergence.</figcaption>
+</figure>
+
+The abliteration is done. From here we have various options to fine-tune the results. Heretic runs multiple trials, and each one reports a **refusal rate** and a **KL divergence**. The refusal rate indicates how many questions the model still refused, while the KL divergence indicates the difference between the abliterated model's and the original model's answers on the "good" prompts — essentially the drop in intelligence that resulted from the operation, i.e. how much the surgery affected neutral neurons and changed the model's behavior. After choosing a trial, you can save the resulting model.
+
+From here you can push it to Hugging Face — but below we cover how to convert it for use in Ollama instead.
 
 
-## 🖥️ Demo
-
-	Abliterate a model via Hertic
-		We are going to use p-e-w/heretic [https://github.com/p-e-w/heretic] to abliterate qwen3.5:0.8b.
-
-	First, we install (preferably in a venv) Hertic via 
-		pip install -U heretic-llm
-
-		Make sure to install all requirements, especially torch and torchvision
-
-	Run
-		heretic Qwen/Qwen3.5-0.8B (or any other model)
-
-  This will run heretic with the default prompt lists
-
-  <img src="/assets/abliteration_series/1/loading.png" alt="Abliterating" />
-
-
-  After it is done processing, we get the following screen
-
-  <img src="/assets/abliteration_series/1/trials.png" alt="Abliteration trials" />
-
-
-  The abliteration is done. Now, we have various options to fine-tune the results. Heretic runs multiple trails, in which, each one has a refusal rate and KL divergence. The refusal rate indicate the number of questions the model refused, while KL  divergence indicate the difference between the abliterated model and the original model answers on the good prompts. Essentially, the drop in intelligence that resulted from the operation. How much did the abliteration surgery affected neutral neurons that changed the model behavior. After choosing a model, you can save it. 
-
-  From here, you can run it on Hugging Face. But will include how to convert it to be used in OLLAMA
-
-
-  
-### <span class="section-thumb"><img src="/assets/logos/ollama.svg" alt="Ollama" /></span> Convert to be Used in OLLAMA
+### <span class="section-thumb"><img src="/assets/logos/ollama.svg" alt="Ollama" /></span> Convert for Use in Ollama
 
 <div class="callout callout-warning">
-<p><strong>Important:</strong> Due to differences in dependencies, it is necessary to have a different virtual environment for the OLLAMA conversion script.</p>
+<p><strong>Important:</strong> Due to differences in dependencies, it is necessary to use a separate virtual environment for the Ollama conversion step.</p>
 </div>
 
-    For this, we need another tool to install to streamline the prorcess
+For this, we need another tool to streamline the process — [`llama.cpp`](https://github.com/ggerganov/llama.cpp):
 
-    git clone https://github.com/ggerganov/llama.cpp.git 
+```bash
+git clone https://github.com/ggerganov/llama.cpp.git
+```
 
-  To align Qwen model with the tool, we need to open the following file ./model/config.json and change mtp_num_hidden_layers to 0, num_nextn_predict_layers to 1, and num_hidden_layers to 24
+To align the Qwen model with the tool, open `./model/config.json` and set:
 
-  Then
+- `mtp_num_hidden_layers` → `0`
+- `num_nextn_predict_layers` → `1`
+- `num_hidden_layers` → `24`
 
-  python llama.cpp/convert_hf_to_gguf.py /path/to/model --outfile /path/to/results.gguf
+Then convert the model to GGUF:
 
-  Then create a “Modelfile” with the content
+```bash
+python llama.cpp/convert_hf_to_gguf.py /path/to/model --outfile /path/to/result.gguf
+```
 
-    FROM ./model.gguf
+Create a `Modelfile` with the following content:
 
-  Then
+```dockerfile
+FROM ./model.gguf
+```
 
-  ollama create my-model -f Modelfile 
-  ollama run my-model
+Then build and run it in Ollama:
 
-  And now, we can interact with the uncensored model in ollama
+```bash
+ollama create my-model -f Modelfile
+ollama run my-model
+```
+
+And now we can interact with the uncensored model in Ollama.
 
 
+### 📊 Additional
 
-## 📊 Additional
+Installing Heretic's research tools lets us gather further data on the abliteration itself:
 
-Installing heretic research tools allows us to get further data on the abliteration itself
-
+```bash
 pip install -U heretic-llm[research]
+```
 
-Running the previous command with –plot-residuals in heretic generates a layer by layer image with a gif animation to indicate the process.
+Running the previous command with `--plot-residuals` generates a layer-by-layer visualization with a GIF animation illustrating the process.
 
-  <img src="/assets/abliteration_series/1/animation.gif" alt="PaCMAP Projection" />
+<figure class="post-figure">
+<img src="/assets/abliteration_series/1/animation.gif" alt="Layer-by-layer residual projection animation" />
+<figcaption>Layer-by-layer residual projection across the network during abliteration.</figcaption>
+</figure>
 
-
-
-
+</div>

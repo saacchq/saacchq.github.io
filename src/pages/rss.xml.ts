@@ -16,8 +16,11 @@ export async function GET(context: { site: URL }) {
       description: post.data.description,
       pubDate: post.data.pubDatetime,
       link: `/posts/${post.data.slug ?? post.id}/`,
-      categories: post.data.tags,
+      categories: [...post.data.tags],
     })),
-    customData: `<language>en-us</language>`,
+    xmlns: { atom: "http://www.w3.org/2005/Atom" },
+    customData:
+      `<language>en</language>` +
+      `<atom:link href="${new URL("rss.xml", context.site).href}" rel="self" type="application/rss+xml"/>`,
   });
 }
