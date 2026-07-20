@@ -4,9 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sync-posts": "node scripts/sync-vault-posts.mjs --vault-path ~/Vault",
-    "dev": "node scripts/sync-vault-posts.mjs --vault-path ~/Vault && astro dev",
-    "build": "node scripts/sync-vault-posts.mjs --vault-path ~/Vault && astro build",
+    "dev": "astro dev",
+    "build": "astro build",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -16,7 +15,6 @@
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.0.0",
     "github-slugger": "^2.0.0",
-    "gray-matter": "^4.0.3",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "tailwindcss": "^4.0.0",
