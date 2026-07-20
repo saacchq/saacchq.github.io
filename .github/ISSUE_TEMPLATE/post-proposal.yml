@@ -1,0 +1,52 @@
+name: "📝 Post proposal"
+description: "Propose a post for the sa/acc blog — no coding required."
+title: "[Post] "
+labels: ["post", "content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for wanting to write for sa/acc! Fill this in and a maintainer will help
+        get your post published. Prefer to do it yourself? See
+        [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md).
+  - type: input
+    id: title
+    attributes:
+      label: Post title
+      placeholder: "e.g. Fine-tuning small models on a single GPU"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: What is it about?
+      description: A few sentences on the topic and why it matters to the community.
+    validations:
+      required: true
+  - type: dropdown
+    id: languages
+    attributes:
+      label: Language(s)
+      options:
+        - "English"
+        - "Arabic"
+        - "Both (English + Arabic)"
+    validations:
+      required: true
+  - type: input
+    id: series
+    attributes:
+      label: Part of a series?
+      placeholder: "e.g. AI Weekly — or leave blank"
+  - type: input
+    id: author
+    attributes:
+      label: Your name / handle
+      placeholder: "e.g. Jane Doe (@janedoe)"
+    validations:
+      required: true
+  - type: textarea
+    id: draft
+    attributes:
+      label: Draft or outline (optional)
+      description: Paste a draft, an outline, or a link to a Google Doc.
