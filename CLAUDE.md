@@ -41,7 +41,8 @@ src/
 │   ├── index.astro            # Home: manifesto + latest posts
 │   ├── posts/index.astro      # Post list
 │   ├── posts/[slug].astro     # Post detail (slideshow, image lightbox, share)
-│   ├── series.astro           # Author-led series
+│   ├── series/index.astro     # Author-led series (directory of series cards)
+│   ├── series/[slug].astro    # Series detail: lead author + that series' posts
 │   ├── members/index.astro    # Members directory
 │   ├── members/[slug].astro   # Member profile (avatar, links, their posts)
 │   ├── tags/index.astro       # Topics + series tags
@@ -72,7 +73,8 @@ public/
   `pubDatetime`. Bilingual content is written in `<div class="lang-block lang-en">` /
   `lang-ar` wrappers. The **first tag** is the series key when it matches a `config.series`
   entry; canonical topic tags are `config.topics` (news, build, engineering, research, share).
-- **Series** (`config.series`) — a tag + lead author; rendered on `/series` and `/tags`.
+- **Series** (`config.series`) — a tag + lead author; listed on `/series`, detailed at
+  `/series/<key>` (and still tag-browsable at `/tags/<key>`).
 - **Members** (`config.members`) — keyed by the name used in a post's `author` field; each
   gets `/members/<slug>` with their avatar and posts. `getMembers.ts` maps a post's effective
   author (series lead, else `author`) to a member.

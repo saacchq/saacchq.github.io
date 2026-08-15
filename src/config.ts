@@ -7,7 +7,7 @@ export const config = {
     "التسارع السعودي — تسريع الذكاء الاصطناعي والتقنية في السعودية",
   author: "sa/acc",
   url: "https://saacchq.org",
-  /** Public contact and Google Calendar subscribe id */
+  /** Public contact email */
   contactEmail: "hello@saacchq.org",
   social: {
     discord: "https://discord.gg/Ks4Dpdzkmn",

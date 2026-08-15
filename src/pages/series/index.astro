@@ -1,0 +1,92 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getSeriesWithPosts } from "@/utils/getSeries";
+import { getTranslation } from "@/i18n";
+
+const seriesList = getSeriesWithPosts(await getCollection("posts"));
+
+const dateOpts = { year: "numeric", month: "short", day: "numeric" } as const;
+---
+
+<Layout title="Series — sa/acc" description="Ongoing series from sa/acc, each led by an author.">
+  <Header />
+
+  <main class="flex-grow z-10 pt-32 pb-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <h1 class="text-3xl md:text-4xl font-bold mb-2 text-[#e6edf3]">
+        <span class="lang-en">{getTranslation("en", "series.title")}</span>
+        <span class="lang-ar">{getTranslation("ar", "series.title")}</span>
+      </h1>
+      <p class="text-[#8b949e] mb-12">
+        <span class="lang-en">{getTranslation("en", "series.subtitle")}</span>
+        <span class="lang-ar">{getTranslation("ar", "series.subtitle")}</span>
+      </p>
+
+      {seriesList.length === 0 ? (
+        <p class="text-[#8b949e] text-center py-16">
+          <span class="lang-en">{getTranslation("en", "series.noneYet")}</span>
+          <span class="lang-ar">{getTranslation("ar", "series.noneYet")}</span>
+        </p>
+      ) : (
+        <div class="flex flex-col gap-4">
+          {seriesList.map((series) => {
+            const latest = series.posts[0];
+            return (
+              <a
+                href={`/series/${series.key}`}
+                class="group block bg-[#171717] border border-[#252525] rounded-lg p-6 hover:border-[#3fb950]/50 transition-colors"
+              >
+                <div class="flex items-baseline justify-between gap-3">
+                  <h2 class="text-xl font-bold text-[#e6edf3] group-hover:text-[#3fb950] transition-colors">
+                    <span class="lang-en">{series.name}</span>
+                    <span class="lang-ar">{series.nameAr || series.name}</span>
+                  </h2>
+                  <span class="text-xs text-[#8b949e] whitespace-nowrap">
+                    {series.posts.length}{" "}
+                    <span class="lang-en">{getTranslation("en", "series.posts")}</span>
+                    <span class="lang-ar">{getTranslation("ar", "series.posts")}</span>
+                  </span>
+                </div>
+
+                <p class="mt-2 text-sm text-[#8b949e]">
+                  <span class="lang-en">{getTranslation("en", "series.by")}</span>
+                  <span class="lang-ar">{getTranslation("ar", "series.by")}</span>{" "}
+                  <span class="font-bold text-[#3fb950]">{series.author}</span>{" "}
+                  <span>(@{series.handle})</span>
+                </p>
+
+                {latest && (
+                  <p class="mt-4 text-sm text-[#8b949e] line-clamp-1">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#6E6E6E] me-2">
+                      <span class="lang-en">{getTranslation("en", "series.latest")}</span>
+                      <span class="lang-ar">{getTranslation("ar", "series.latest")}</span>
+                    </span>
+                    <span class="lang-en">{latest.data.title}</span>
+                    <span class="lang-ar">{latest.data.titleAr || latest.data.title}</span>
+                    <span class="text-[#6E6E6E]">
+                      {" — "}
+                      <span class="lang-en">{latest.data.pubDatetime.toLocaleDateString("en-US", dateOpts)}</span>
+                      <span class="lang-ar">{latest.data.pubDatetime.toLocaleDateString("ar-SA", dateOpts)}</span>
+                    </span>
+                  </p>
+                )}
+
+                {!latest && (
+                  <p class="mt-4 text-sm text-[#8b949e]">
+                    <span class="lang-en">{getTranslation("en", "series.noPostsYet")}</span>
+                    <span class="lang-ar">{getTranslation("ar", "series.noPostsYet")}</span>
+                  </p>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

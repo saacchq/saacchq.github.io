@@ -1,6 +1,18 @@
 ---
 import { config } from "@/config";
 import { getTranslation } from "@/i18n";
+
+const googleCalendarParams = new URLSearchParams({
+  action: "TEMPLATE",
+  text: "sa/acc weekly meeting",
+  dates: "20260328T160000Z/20260328T170000Z",
+  recur: "RRULE:FREQ=WEEKLY;BYDAY=SA",
+  ctz: "Asia/Riyadh",
+  details:
+    "Everything AI — news, research, engineering — and what we're building. Everyone is welcome.",
+  location: config.social.discord,
+});
+const googleCalendarUrl = `https://calendar.google.com/calendar/render?${googleCalendarParams}`;
 ---
 
 <!-- Hero -->
@@ -65,7 +77,7 @@ import { getTranslation } from "@/i18n";
         <span class="lang-en">{getTranslation("en", "meeting.addToCalendar")}</span>
       </div>
       <a
-        href={`https://calendar.google.com/calendar/r?cid=${encodeURIComponent(config.contactEmail)}`}
+        href={googleCalendarUrl}
         target="_blank"
         rel="noreferrer"
         class="flex items-center gap-3 px-4 py-3 text-xs text-[#e6edf3] hover:bg-[#3fb950]/10 hover:text-[#3fb950] transition-colors"
@@ -147,4 +159,3 @@ import { getTranslation } from "@/i18n";
     ))}
   </div>
 </section>
-

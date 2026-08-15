@@ -1,0 +1,131 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import PostCard from "@/components/PostCard.astro";
+import Avatar from "@/components/Avatar.astro";
+import { getSeriesWithPosts, type SeriesWithPosts } from "@/utils/getSeries";
+import { getAllMembers } from "@/utils/getMembers";
+import { getReadingTime } from "@/utils/getReadingTime";
+import { getTranslation } from "@/i18n";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("posts");
+  const members = getAllMembers(allPosts);
+  return getSeriesWithPosts(allPosts).map((series) => ({
+    params: { slug: series.key },
+    props: { series, member: members.find((m) => m.name === series.author) },
+  }));
+}
+
+interface Props {
+  series: SeriesWithPosts;
+  member?: { slug: string; avatar?: string };
+}
+
+const { series, member } = Astro.props;
+---
+
+<Layout
+  title={`${series.name} — sa/acc`}
+  description={`${series.name} — an ongoing sa/acc series led by ${series.author}.`}
+>
+  <Header />
+
+  <main class="flex-grow z-10 pt-32 pb-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <a
+        href="/series"
+        class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors mb-6"
+      >
+        <span>&larr;</span>
+        <span class="lang-en">{getTranslation("en", "series.back")}</span>
+        <span class="lang-ar">{getTranslation("ar", "series.back")}</span>
+      </a>
+
+      <div class="flex items-baseline gap-3 mb-3">
+        <h1 class="text-3xl md:text-4xl font-bold text-[#e6edf3]">
+          <span class="lang-en">{series.name}</span>
+          <span class="lang-ar">{series.nameAr || series.name}</span>
+        </h1>
+        <span class="text-sm text-[#8b949e] whitespace-nowrap">{series.posts.length}</span>
+      </div>
+
+      <!-- Lead author -->
+      <div class="flex items-center gap-3 mb-10">
+        {member ? (
+          <a href={`/members/${member.slug}`} class="shrink-0" aria-label={series.author}>
+            <Avatar name={series.author} avatar={member.avatar} size={40} />
+          </a>
+        ) : (
+          <Avatar name={series.author} size={40} />
+        )}
+        <div class="text-sm">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-[#6E6E6E]">
+            <span class="lang-en">{getTranslation("en", "series.lead")}</span>
+            <span class="lang-ar">{getTranslation("ar", "series.lead")}</span>
+          </p>
+          <p class="mt-0.5 flex flex-wrap items-center gap-x-2 text-[#8b949e]">
+            {member ? (
+              <a href={`/members/${member.slug}`} class="font-bold text-[#3fb950] hover:underline">
+                {series.author}
+              </a>
+            ) : (
+              <span class="font-bold text-[#e6edf3]">{series.author}</span>
+            )}
+            <a
+              href={series.authorUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 hover:text-[#3fb950] transition-colors"
+            >
+              <span>@{series.handle}</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Posts -->
+      <h2 class="text-xs font-bold uppercase tracking-widest text-[#6E6E6E] mb-5 border-b border-[#252525] pb-3">
+        <span class="lang-en">{getTranslation("en", "series.postsHeading")}</span>
+        <span class="lang-ar">{getTranslation("ar", "series.postsHeading")}</span>
+        <span class="text-[#3fb950]"> {series.posts.length}</span>
+      </h2>
+
+      {series.posts.length === 0 ? (
+        <p class="text-[#8b949e] text-sm py-4">
+          <span class="lang-en">{getTranslation("en", "series.noPostsYet")}</span>
+          <span class="lang-ar">{getTranslation("ar", "series.noPostsYet")}</span>
+        </p>
+      ) : (
+        <div class="flex flex-col gap-4">
+          {series.posts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              titleAr={post.data.titleAr}
+              description={post.data.description}
+              descriptionAr={post.data.descriptionAr}
+              pubDatetime={post.data.pubDatetime}
+              tags={post.data.tags}
+              readingTime={getReadingTime(post.body ?? "")}
+              slug={post.data.slug ?? post.id}
+            />
+          ))}
+        </div>
+      )}
+
+      <a
+        href={`/tags/${series.key}`}
+        class="inline-flex items-center gap-1 mt-8 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors"
+      >
+        <span class="lang-en">{getTranslation("en", "series.viewTag")}</span>
+        <span class="lang-ar">{getTranslation("ar", "series.viewTag")}</span>
+        <span>#{series.key}</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

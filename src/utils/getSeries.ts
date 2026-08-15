@@ -1,4 +1,6 @@
+import type { CollectionEntry } from "astro:content";
 import { config } from "@/config";
+import { getSortedPosts } from "./getSortedPosts";
 
 export interface SeriesMeta {
   name: string;
@@ -32,4 +34,21 @@ export function getSeriesFromTags(tags?: string[]): Series | null {
 export function getAllSeries(): Series[] {
   const registry = config.series as Record<string, SeriesMeta>;
   return Object.entries(registry).map(([key, meta]) => ({ key, ...meta }));
+}
+
+export interface SeriesWithPosts extends Series {
+  posts: CollectionEntry<"posts">[];
+}
+
+/** Every series with its posts (newest first), for /series and /series/<key>. */
+export function getSeriesWithPosts(
+  allPosts: CollectionEntry<"posts">[]
+): SeriesWithPosts[] {
+  const posts = getSortedPosts(allPosts);
+  return getAllSeries().map((series) => ({
+    ...series,
+    posts: posts.filter((post) =>
+      post.data.tags.some((t) => t.toLowerCase() === series.key)
+    ),
+  }));
 }
