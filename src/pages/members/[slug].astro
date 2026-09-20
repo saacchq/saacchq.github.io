@@ -39,7 +39,8 @@ const isLinkedIn = member.url ? /linkedin\.com/.test(member.url) : false;
         href="/members"
         class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors mb-8"
       >
-        <span>&larr;</span>
+        <span class="lang-en">&larr;</span>
+        <span class="lang-ar">&rarr;</span>
         <span class="lang-en">{getTranslation("en", "member.back")}</span>
         <span class="lang-ar">{getTranslation("ar", "member.back")}</span>
       </a>

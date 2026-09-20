@@ -1,55 +1,105 @@
 ---
 import LangToggle from "@/components/LangToggle.astro";
-import { config } from "@/config";
 import { getTranslation } from "@/i18n";
+
+const links = [
+  { href: "/posts", key: "nav.posts" },
+  { href: "/series", key: "nav.series" },
+  { href: "/members", key: "nav.members" },
+  { href: "/manifesto", key: "nav.manifesto" },
+];
+
+const linkClass =
+  "inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors";
+// No display utility here on purpose: each use site sets its own, and a second
+// `inline-flex` in the class list would override `hidden` on the desktop one.
+const joinClass =
+  "items-center justify-center px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#3fb950] border border-[#3fb950] hover:bg-[#3fb950] hover:text-[#0d1117] transition-all duration-200";
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-40 bg-[#161b22]/80 backdrop-blur-md border-b border-[#30363d]">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center gap-4">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+    <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
       <img src="/assets/imgs/saacchq_logo.jpeg" alt="sa/acc" width="32" height="32" class="rounded" />
       <span class="text-xl font-bold tracking-tight text-[#e6edf3]">sa<span class="text-[#3fb950]">/</span>acc</span>
     </a>
 
     <!-- Right side -->
-    <div class="flex items-center gap-6">
-      <a
-        href="/posts"
-        class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
-      >
-        <span class="lang-ar">{getTranslation("ar", "nav.posts")}</span>
-        <span class="lang-en">{getTranslation("en", "nav.posts")}</span>
-      </a>
-      <a
-        href="/series"
-        class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
-      >
-        <span class="lang-ar">{getTranslation("ar", "nav.series")}</span>
-        <span class="lang-en">{getTranslation("en", "nav.series")}</span>
-      </a>
-      <a
-        href="/members"
-        class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
-      >
-        <span class="lang-ar">{getTranslation("ar", "nav.members")}</span>
-        <span class="lang-en">{getTranslation("en", "nav.members")}</span>
-      </a>
-      <a
-        href="/manifesto"
-        class="inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors"
-      >
-        <span class="lang-ar">{getTranslation("ar", "nav.manifesto")}</span>
-        <span class="lang-en">{getTranslation("en", "nav.manifesto")}</span>
-      </a>
+    <div class="flex items-center gap-4 md:gap-6">
+      <!-- Desktop links (the full row does not fit a phone) -->
+      <div class="hidden md:flex items-center gap-6">
+        {links.map((link) => (
+          <a href={link.href} class={linkClass}>
+            <span class="lang-ar">{getTranslation("ar", link.key)}</span>
+            <span class="lang-en">{getTranslation("en", link.key)}</span>
+          </a>
+        ))}
+      </div>
+
       <LangToggle />
-      <a
-        href="/contribute"
-        class="inline-flex items-center justify-center px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#3fb950] border border-[#3fb950] hover:bg-[#3fb950] hover:text-[#0d1117] transition-all duration-200"
+
+      <a href="/contribute" class={`hidden md:inline-flex ${joinClass}`}>
+        <span class="lang-ar">{getTranslation("ar", "nav.join")}</span>
+        <span class="lang-en">{getTranslation("en", "nav.join")}</span>
+      </a>
+
+      <!-- Mobile menu trigger -->
+      <button
+        id="nav-toggle"
+        type="button"
+        class="md:hidden inline-flex items-center justify-center w-9 h-9 shrink-0 text-[#8b949e] hover:text-[#e6edf3] transition-colors bg-transparent border-0 cursor-pointer"
+        aria-label="Menu"
+        aria-controls="nav-menu"
+        aria-expanded="false"
       >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <path data-nav-open d="M3 5h14M3 10h14M3 15h14" stroke-linecap="round" />
+          <path data-nav-close class="hidden" d="M5 5l10 10M15 5L5 15" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu panel -->
+  <div id="nav-menu" class="md:hidden border-t border-[#30363d] bg-[#161b22]" hidden>
+    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
+      {links.map((link) => (
+        <a href={link.href} class={linkClass}>
+          <span class="lang-ar">{getTranslation("ar", link.key)}</span>
+          <span class="lang-en">{getTranslation("en", link.key)}</span>
+        </a>
+      ))}
+      <a href="/contribute" class={`inline-flex self-start ${joinClass}`}>
         <span class="lang-ar">{getTranslation("ar", "nav.join")}</span>
         <span class="lang-en">{getTranslation("en", "nav.join")}</span>
       </a>
     </div>
   </div>
 </nav>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("nav-menu");
+  const openIcon = document.querySelector<SVGPathElement>("[data-nav-open]");
+  const closeIcon = document.querySelector<SVGPathElement>("[data-nav-close]");
+
+  const setOpen = (open: boolean) => {
+    if (!menu || !toggle) return;
+    menu.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+    openIcon?.classList.toggle("hidden", open);
+    closeIcon?.classList.toggle("hidden", !open);
+  };
+
+  toggle?.addEventListener("click", () => setOpen(menu?.hidden ?? true));
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setOpen(false);
+  });
+
+  // Close when the viewport grows into the desktop layout
+  window.matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
+    if (event.matches) setOpen(false);
+  });
+</script>

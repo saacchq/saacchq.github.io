@@ -14,7 +14,7 @@ and we'll help.
 
 ## Quickstart
 
-Requires [Node 20+](https://nodejs.org) and [pnpm](https://pnpm.io).
+Requires [Node 22+](https://nodejs.org) and [pnpm](https://pnpm.io).
 
 ```bash
 pnpm install
@@ -27,7 +27,7 @@ No vault, secrets, or extra setup — the site builds entirely from the repo.
 
 ## Stack
 
-- **[Astro 5](https://astro.build)** static site (SSG)
+- **[Astro 7](https://astro.build)** static site (SSG)
 - **[Tailwind CSS v4](https://tailwindcss.com)** via `@tailwindcss/vite`
 - **TypeScript** (strict) · **pnpm** · deployed to **GitHub Pages** on push to `main`
 

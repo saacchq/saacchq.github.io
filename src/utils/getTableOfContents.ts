@@ -22,7 +22,10 @@ function stripHtml(text: string): string {
 }
 
 export function getTableOfContents(body: string): TocByLanguage {
-  const lines = body.split("\n");
+  // Split on both line-ending styles: the posts are committed with CRLF, and a
+  // trailing "\r" makes the `^##\s+(.+)$` heading match fail (`.` and `$` both
+  // stop at the carriage return), which silently empties the whole TOC.
+  const lines = body.split(/\r?\n/);
   const result: TocByLanguage = { en: [], ar: [] };
   // rehype-slug uses one slugger for the whole document; share one here too so
   // duplicate-suffixes (foo, foo-1) match the rendered output.

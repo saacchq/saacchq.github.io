@@ -10,7 +10,7 @@ guide covers everything you need to publish a post or improve the site.
 
 ## Run the site locally
 
-You need [Node 20+](https://nodejs.org) and [pnpm](https://pnpm.io).
+You need [Node 22+](https://nodejs.org) and [pnpm](https://pnpm.io).
 
 ```bash
 git clone https://github.com/saacchq/saacchq.org.git

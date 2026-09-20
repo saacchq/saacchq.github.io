@@ -1,9 +1,26 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* ─── Arabic mono face ───
+   JetBrains Mono carries no Arabic glyphs, so Arabic would otherwise drop to a
+   proportional fallback. This is Cascadia Code's Arabic subset (self-hosted, 68KB,
+   OFL — see LICENSE-Cascadia-Code.txt next to the file), scoped by unicode-range so
+   it is fetched and applied for Arabic codepoints only: Latin stays JetBrains Mono,
+   and both scripts end up monospace. */
+@font-face {
+  font-family: "Cascadia Code Arabic";
+  src: url("/assets/fonts/cascadia-code-arabic.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1,
+    U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74,
+    U+FE76-FEFC, U+10E60-10E7E;
+}
+
 @theme {
-  --font-sans: "JetBrains Mono", monospace;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Cascadia Code Arabic", "JetBrains Mono", monospace;
+  --font-mono: "Cascadia Code Arabic", "JetBrains Mono", monospace;
   --color-github-bg: #0d1117;
   --color-github-border: #30363d;
   --color-github-text: #e6edf3;
@@ -36,14 +53,14 @@ body {
   background-size: 40px 40px;
   color: var(--text-main);
   min-height: 100vh;
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Cascadia Code Arabic", "JetBrains Mono", monospace;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
 html[lang="ar"] body {
-  font-family: "JetBrains Mono", "Noto Sans Arabic", ui-sans-serif, system-ui,
-    sans-serif;
+  font-family: "Cascadia Code Arabic", "JetBrains Mono", "Noto Sans Arabic",
+    ui-sans-serif, system-ui, sans-serif;
 }
 
 html[lang="en"] #lang-toggle .lang-en {
@@ -203,7 +220,8 @@ button:focus:not(:focus-visible),
   display: flex;
   gap: 0.75rem;
   background: #171717;
-  border-left: 4px solid #3fb950;
+  /* logical, so the accent bar sits on the start edge in both LTR and RTL */
+  border-inline-start: 4px solid #3fb950;
   border-radius: 6px;
   padding: 1rem 1.25rem;
   margin: 1.5rem 0;
@@ -216,19 +234,35 @@ button:focus:not(:focus-visible),
   color: #3fb950;
   font-weight: 700;
 }
-.callout-info { border-left-color: #58a6ff; }
+.callout-info { border-inline-start-color: #58a6ff; }
 .callout-info::before { content: "ℹ"; color: #58a6ff; }
-.callout-warning { border-left-color: #d29922; }
+.callout-warning { border-inline-start-color: #d29922; }
 .callout-warning::before { content: "⚠"; color: #d29922; }
-.callout-danger { border-left-color: #f85149; }
+.callout-danger { border-inline-start-color: #f85149; }
 .callout-danger::before { content: "✕"; color: #f85149; }
-.callout-success { border-left-color: #3fb950; }
+.callout-success { border-inline-start-color: #3fb950; }
 .callout-success::before { content: "✓"; color: #3fb950; }
 .callout p {
   margin: 0;
 }
 .callout strong {
   color: #e6edf3;
+}
+
+/* ─── Code is always LTR ─── */
+/* Latin code sitting inside RTL Arabic prose is otherwise reordered by the
+   bidi algorithm: trailing punctuation, brackets, slashes and pipes jump to
+   the wrong end of the run (`model.safetensors` → `safetensors.model`, and
+   `--flag=value` loses its dashes to the left). `isolate` gives each code run
+   its own embedding level so it reads exactly as written, while the
+   surrounding Arabic keeps flowing right-to-left. */
+.prose code,
+.prose kbd,
+.prose samp,
+.prose pre,
+.astro-code {
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
 /* ─── Figures & Memes ─── */
@@ -388,7 +422,7 @@ body.slideshow-active .figure-people figcaption {
   border: 1px solid #252525;
   border-radius: 8px;
   padding: 8px;
-  margin-right: 0.75rem;
+  margin-inline-end: 0.75rem;
   vertical-align: middle;
 }
 .section-thumb img {
@@ -413,7 +447,7 @@ body.slideshow-active .figure-people figcaption {
   margin-bottom: 1rem;
 }
 .prose .footnotes ol {
-  padding-left: 1.5rem;
+  padding-inline-start: 1.5rem;
 }
 .prose .footnotes li {
   color: #8b949e;
@@ -441,8 +475,12 @@ body.slideshow-active .figure-people figcaption {
   margin-bottom: 2rem !important;
   padding: 0.75rem 1rem !important;
   background: linear-gradient(90deg, rgba(63, 185, 80, 0.08), transparent);
-  border-left: 3px solid #3fb950;
+  border-inline-start: 3px solid #3fb950;
   border-bottom: none !important;
+}
+/* gradients take no logical direction, so mirror the tint by hand in RTL */
+html[dir="rtl"] .prose h2 {
+  background: linear-gradient(270deg, rgba(63, 185, 80, 0.08), transparent);
 }
 .prose h2:first-child {
   margin-top: 1rem !important;
@@ -532,7 +570,7 @@ body.slideshow-active .lang-block .section-thumb {
   width: 96px !important;
   height: 96px !important;
   padding: 12px !important;
-  margin-right: 0 !important;
+  margin-inline-end: 0 !important;
   display: inline-flex;
   flex-shrink: 0;
   vertical-align: middle;
@@ -544,7 +582,7 @@ body.slideshow-active .lang-block .section-thumb img {
 /* ─── Heading Anchors ─── */
 .heading-anchor {
   opacity: 0;
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
   color: #6E6E6E;
   text-decoration: none;
   font-weight: 400;

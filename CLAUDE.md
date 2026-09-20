@@ -14,19 +14,23 @@ Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Architecture
 
-Astro 5 static site (SSG), multi-page, bilingual (Arabic RTL default intent / English
+Astro 7 static site (SSG), multi-page, bilingual (Arabic RTL default intent / English
 LTR) with a client-side `localStorage` language toggle. Dark mode only. Manifesto-style
 design plus a community blog (posts, series, tags), a members directory, and
 community pages (contribute, about, 404).
 
 ### Stack
 
-- **Framework**: Astro 5 (static SSG), `@astrojs/sitemap`, `@astrojs/rss`
+- **Framework**: Astro 7 (static SSG), `@astrojs/sitemap`, `@astrojs/rss`
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/vite` (configured in `astro.config.ts`)
-- **Markdown**: `rehype-slug` + `rehype-autolink-headings` (heading anchors)
+- **Markdown**: unified processor via `@astrojs/markdown-remark` (Astro 7 defaults to
+  Sätteri), with `rehype-slug` + `rehype-autolink-headings` (heading anchors)
+- **Fonts**: JetBrains Mono (Latin, via Google Fonts) + Cascadia Code's Arabic subset,
+  self-hosted at `public/assets/fonts/` and scoped by `unicode-range` in `global.css`
+  so Arabic is monospace too and English visitors never fetch it
 - **TypeScript**: strict (`astro/tsconfigs/strict`)
-- **Package manager**: pnpm
-- **Deploy**: GitHub Pages via Actions (pnpm 9, Node 20) on push to `main`; a separate
+- **Package manager**: pnpm (exact version pinned by `packageManager` in `package.json`)
+- **Deploy**: GitHub Pages via Actions (pnpm pinned via `packageManager`, Node 22) on push to `main`; a separate
   `ci.yml` runs `pnpm build` on every PR.
 
 ### Path alias

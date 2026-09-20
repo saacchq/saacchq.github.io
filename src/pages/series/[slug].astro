@@ -39,7 +39,8 @@ const { series, member } = Astro.props;
         href="/series"
         class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors mb-6"
       >
-        <span>&larr;</span>
+        <span class="lang-en">&larr;</span>
+        <span class="lang-ar">&rarr;</span>
         <span class="lang-en">{getTranslation("en", "series.back")}</span>
         <span class="lang-ar">{getTranslation("ar", "series.back")}</span>
       </a>
