@@ -26,10 +26,13 @@ def diamond(cx: float, cy: float, radius: float) -> str:
 
 
 def make_svg() -> str:
-    # The frame is an exact 672px square with a uniform 24px white border.
-    # Keep the approved cubic controls. Extend its endpoints 1px into the
-    # frame so antialiasing cannot leave a black seam at the bottom or right.
-    growth = "M 314 939 C 523.56 932.91 938 924.83 939 313 L 939 939 H 314 Z"
+    # Draw the border and growth as ONE white shape. Its black upper-left
+    # opening is the inner path, so there can be no raster seam where the
+    # curve reaches the bottom and right sides of the frame.
+    white_mark = (
+        "M 290 290 H 962 V 962 H 290 Z "
+        "M 314 314 H 938 C 938 924.83 523.56 932.91 314 938 Z"
+    )
 
     # Pattern center is (390, 622). Rails and zigzag are mirrored horizontally;
     # all turns and dots use the same 61.25px vertical spacing.
@@ -49,8 +52,7 @@ def make_svg() -> str:
   <rect width="{SIZE}" height="{SIZE}" fill="{BACKGROUND}"/>
   <defs><clipPath id="weave-bounds"><rect x="350" y="333" width="80" height="578"/></clipPath></defs>
   <g id="fixed-white-growth-mark" fill="{WHITE}">
-    <path d="M 290 290 H 962 V 962 H 290 Z M 314 314 V 938 H 938 V 314 Z" fill-rule="evenodd"/>
-    <path d="{growth}"/>
+    <path d="{white_mark}" fill-rule="evenodd"/>
   </g>
   <g id="vertical-saudi-pattern" fill="{GREEN}">
     <path d="M 337 333 H 347 V 911 H 337 Z M 433 333 H 443 V 911 H 433 Z"/>

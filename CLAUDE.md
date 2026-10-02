@@ -8,17 +8,15 @@ The sa/acc community website is an Astro 7 static site deployed to GitHub Pages.
 pnpm install
 pnpm dev
 pnpm build
-pnpm sync:discord
 ```
 
-The build works without credentials. `pnpm sync:discord` needs `DISCORD_BOT_TOKEN` for a bot installed in the sa/acc server with Guild Members Intent enabled. It generates `src/data/discord-members.json`; never commit a token or generated roster. GitHub Actions runs the sync before production builds when the secret exists.
+The build works without credentials.
 
 ## Structure
 
-- `src/pages/`: Home, Members, Manifesto, Join, and 404.
-- `src/components/`: shared navigation, footer, hero, avatars, language toggle.
-- `src/config.ts`: site metadata, social links, meeting time, maintained profiles.
-- `src/data/discord-members.json`: generated public member roster, empty in the repo.
+- `src/pages/`: Home, Manifesto, Join, and 404.
+- `src/components/`: shared navigation, footer, hero, language toggle.
+- `src/config.ts`: site metadata, social links, meeting time.
 - `src/styles/global.css`: black and white site styling and the exact left-side Saudi pattern asset.
 - `public/assets/brand/`: source logo assets used throughout the site.
 

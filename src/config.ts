@@ -44,36 +44,6 @@ export const config = {
     discordGuildId: "",
     discordVoiceChannelId: "",
   },
-  /**
-   * Community profiles shown on /members with detail pages. The complete
-   * Discord roster is generated separately at build time.
-   *
-   * `avatar`: path to a committed image (e.g. your Discord profile picture) under
-   *   public/assets/members/, referenced as /assets/members/<file>. Leave empty
-   *   to show a monogram fallback. `discord` is your Discord username (optional).
-   */
-  members: {
-    "Mazen Alotaibi": {
-      slug: "mazen-alotaibi",
-      role: "Founder",
-      roleAr: "المؤسس",
-      discord: "ma7dev",
-      handle: "ma7dev",
-      url: "https://x.com/ma7dev",
-      bio: "",
-      bioAr: "",
-    },
-    "Yousef Altaher": {
-      slug: "yousef-altaher",
-      role: "Contributor",
-      roleAr: "مساهم",
-      discord: "",
-      handle: "yousef-altaher",
-      url: "https://www.linkedin.com/in/yousef-altaher/",
-      bio: "",
-      bioAr: "",
-    },
-  },
   manifesto: [
     { id: "01", tag: "#build" },
     { id: "02", tag: "#research" },

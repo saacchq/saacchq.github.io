@@ -12,7 +12,7 @@ pnpm dev
 pnpm build
 ```
 
-The site builds without Discord credentials. The member directory shows maintained profiles until the bot sync is configured. See [README.md](README.md) for the roster setup.
+The site builds without credentials or external services.
 
 ## Submit a change
 
