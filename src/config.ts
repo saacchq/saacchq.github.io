@@ -10,6 +10,7 @@ export const config = {
   contactEmail: "hello@saacchq.org",
   social: {
     discord: "https://discord.gg/Ks4Dpdzkmn",
+    youtube: "https://www.youtube.com/@saacchq",
     github: "https://github.com/saacchq",
     repo: "https://github.com/saacchq/saacchq.github.io",
   },

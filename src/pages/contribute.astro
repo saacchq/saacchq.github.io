@@ -9,7 +9,7 @@ import { getTranslation } from "@/i18n";
 
 <Layout
   title="Join & Contribute — sa/acc"
-  description="Ways to be part of sa/acc: join the Discord or come to the weekly meeting."
+  description="Join the sa/acc Discord, come to a weekly meeting, or watch live streams and videos on YouTube."
 >
   <Header />
 
@@ -67,6 +67,28 @@ import { getTranslation } from "@/i18n";
           >
             <span class="lang-en">{getTranslation("en", "contribute.meeting.cta")}</span>
             <span class="lang-ar">{getTranslation("ar", "contribute.meeting.cta")}</span>
+          </a>
+        </section>
+
+        {/* YouTube */}
+        <section class="border border-[#333333] bg-[#050505] rounded-lg p-6">
+          <h2 class="text-lg font-bold text-[#ffffff] mb-2">
+            <span class="lang-en">{getTranslation("en", "contribute.youtube.title")}</span>
+            <span class="lang-ar">{getTranslation("ar", "contribute.youtube.title")}</span>
+          </h2>
+          <p class="text-sm text-white/70 mb-4 i18n-body">
+            <span class="lang-en">{getTranslation("en", "contribute.youtube.body")}</span>
+            <span class="lang-ar">{getTranslation("ar", "contribute.youtube.body")}</span>
+          </p>
+          <a
+            href={config.social.youtube}
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 border border-[#22A95A] text-[#22A95A] hover:bg-[#22A95A] hover:text-black rounded text-xs font-bold uppercase tracking-widest transition-colors"
+          >
+            <span class="lang-en">{getTranslation("en", "contribute.youtube.cta")}</span>
+            <span class="lang-ar">{getTranslation("ar", "contribute.youtube.cta")}</span>
+            <span aria-hidden="true">↗</span>
           </a>
         </section>
 

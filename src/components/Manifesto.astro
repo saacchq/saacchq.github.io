@@ -102,6 +102,16 @@ const googleCalendarUrl = `https://calendar.google.com/calendar/render?${googleC
     <span class="lang-ar">{getTranslation("ar", "meeting.description")}</span>
     <span class="lang-en">{getTranslation("en", "meeting.description")}</span>
   </p>
+  <a
+    href={config.social.youtube}
+    target="_blank"
+    rel="noreferrer"
+    class="inline-flex items-center gap-2 text-xs font-bold text-[#22A95A] hover:text-white transition-colors"
+  >
+    <span class="lang-ar">{getTranslation("ar", "meeting.youtube")}</span>
+    <span class="lang-en">{getTranslation("en", "meeting.youtube")}</span>
+    <span aria-hidden="true">↗</span>
+  </a>
 </section>
 
 <script>
