@@ -5,35 +5,33 @@ import Footer from "@/components/Footer.astro";
 import { config } from "@/config";
 import { getTranslation } from "@/i18n";
 
-const guideUrl = `${config.social.repo}/blob/main/CONTRIBUTING.md`;
-const proposeUrl = `${config.social.repo}/issues/new?template=post-proposal.yml`;
 ---
 
 <Layout
   title="Join & Contribute — sa/acc"
-  description="Ways to be part of sa/acc: join the Discord, come to the weekly meeting, or write a post."
+  description="Ways to be part of sa/acc: join the Discord or come to the weekly meeting."
 >
   <Header />
 
   <main class="flex-grow z-10 pt-32 pb-24">
     <div class="max-w-3xl mx-auto px-6">
-      <h1 class="text-3xl md:text-4xl font-bold mb-2 text-[#e6edf3]">
+      <h1 class="text-3xl md:text-4xl font-bold mb-2 text-[#ffffff]">
         <span class="lang-en">{getTranslation("en", "contribute.title")}</span>
         <span class="lang-ar">{getTranslation("ar", "contribute.title")}</span>
       </h1>
-      <p class="text-[#8b949e] mb-12">
+      <p class="text-white/70 mb-12">
         <span class="lang-en">{getTranslation("en", "contribute.subtitle")}</span>
         <span class="lang-ar">{getTranslation("ar", "contribute.subtitle")}</span>
       </p>
 
       <div class="flex flex-col gap-6">
         {/* Discord */}
-        <section class="border border-[#252525] bg-[#171717] rounded-lg p-6">
-          <h2 class="text-lg font-bold text-[#e6edf3] mb-2">
+        <section class="border border-[#333333] bg-[#050505] rounded-lg p-6">
+          <h2 class="text-lg font-bold text-[#ffffff] mb-2">
             <span class="lang-en">{getTranslation("en", "contribute.discord.title")}</span>
             <span class="lang-ar">{getTranslation("ar", "contribute.discord.title")}</span>
           </h2>
-          <p class="text-sm text-[#8b949e] mb-4">
+          <p class="text-sm text-white/70 mb-4">
             <span class="lang-en">{getTranslation("en", "contribute.discord.body")}</span>
             <span class="lang-ar">{getTranslation("ar", "contribute.discord.body")}</span>
           </p>
@@ -41,7 +39,7 @@ const proposeUrl = `${config.social.repo}/issues/new?template=post-proposal.yml`
             href={config.social.discord}
             target="_blank"
             rel="noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-[#22A95A] text-[#0d1117] text-xs font-bold uppercase tracking-widest rounded hover:brightness-110 transition-all"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-[#22A95A] text-[#000000] text-xs font-bold uppercase tracking-widest rounded hover:brightness-110 transition-all"
           >
             <span class="lang-en">{getTranslation("en", "contribute.discord.cta")}</span>
             <span class="lang-ar">{getTranslation("ar", "contribute.discord.cta")}</span>
@@ -49,60 +47,29 @@ const proposeUrl = `${config.social.repo}/issues/new?template=post-proposal.yml`
         </section>
 
         {/* Meeting */}
-        <section class="border border-[#252525] bg-[#171717] rounded-lg p-6">
-          <h2 class="text-lg font-bold text-[#e6edf3] mb-2">
+        <section class="border border-[#333333] bg-[#050505] rounded-lg p-6">
+          <h2 class="text-lg font-bold text-[#ffffff] mb-2">
             <span class="lang-en">{getTranslation("en", "contribute.meeting.title")}</span>
             <span class="lang-ar">{getTranslation("ar", "contribute.meeting.title")}</span>
           </h2>
-          <p class="text-sm text-[#8b949e] mb-3">
+          <p class="text-sm text-white/70 mb-3">
             <span class="lang-en">{getTranslation("en", "contribute.meeting.body")}</span>
             <span class="lang-ar">{getTranslation("ar", "contribute.meeting.body")}</span>
           </p>
-          <p class="text-xs text-[#22A95A] font-bold uppercase tracking-widest mb-4">
+          <p class="text-xs text-white font-bold uppercase tracking-widest mb-4">
             <span class="lang-en">{config.meeting.schedule}</span>
             <span class="lang-ar">{config.meeting.scheduleAr}</span>
           </p>
           <a
             href="/saacchq-meeting.ics"
             download="saacchq-meeting.ics"
-            class="inline-flex items-center gap-2 px-4 py-2 border border-[#252525] hover:border-[#22A95A] hover:text-[#22A95A] rounded text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors"
+            class="inline-flex items-center gap-2 px-4 py-2 border border-[#333333] hover:border-[#22A95A] hover:text-white rounded text-xs font-bold uppercase tracking-widest text-white/70 transition-colors"
           >
             <span class="lang-en">{getTranslation("en", "contribute.meeting.cta")}</span>
             <span class="lang-ar">{getTranslation("ar", "contribute.meeting.cta")}</span>
           </a>
         </section>
 
-        {/* Write a post */}
-        <section class="border border-[#252525] bg-[#171717] rounded-lg p-6">
-          <h2 class="text-lg font-bold text-[#e6edf3] mb-2">
-            <span class="lang-en">{getTranslation("en", "contribute.write.title")}</span>
-            <span class="lang-ar">{getTranslation("ar", "contribute.write.title")}</span>
-          </h2>
-          <p class="text-sm text-[#8b949e] mb-4">
-            <span class="lang-en">{getTranslation("en", "contribute.write.body")}</span>
-            <span class="lang-ar">{getTranslation("ar", "contribute.write.body")}</span>
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a
-              href={proposeUrl}
-              target="_blank"
-              rel="noreferrer"
-              class="inline-flex items-center gap-2 px-4 py-2 bg-[#22A95A] text-[#0d1117] text-xs font-bold uppercase tracking-widest rounded hover:brightness-110 transition-all"
-            >
-              <span class="lang-en">{getTranslation("en", "contribute.write.propose")}</span>
-              <span class="lang-ar">{getTranslation("ar", "contribute.write.propose")}</span>
-            </a>
-            <a
-              href={guideUrl}
-              target="_blank"
-              rel="noreferrer"
-              class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-[#22A95A] hover:underline"
-            >
-              <span class="lang-en">{getTranslation("en", "contribute.write.guide")}</span>
-              <span class="lang-ar">{getTranslation("ar", "contribute.write.guide")}</span>
-            </a>
-          </div>
-        </section>
       </div>
     </div>
   </main>

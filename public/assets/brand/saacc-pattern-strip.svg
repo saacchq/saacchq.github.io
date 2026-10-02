@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="32" viewBox="0 0 128 32" fill="none" aria-hidden="true">
-  <path d="M0 2H128M0 30H128" stroke="#22A95A" stroke-width="2"/>
-  <path d="M0 16L16 5L32 16L48 27L64 16L80 5L96 16L112 27L128 16" stroke="#22A95A" stroke-width="3" stroke-linejoin="miter"/>
-  <path d="M16 12L20 16L16 20L12 16ZM48 12L52 16L48 20L44 16ZM80 12L84 16L80 20L76 16ZM112 12L116 16L112 20L108 16Z" fill="#22A95A"/>
-</svg>

@@ -1,13 +1,9 @@
-<!-- Thanks for contributing to sa/acc! -->
+## Summary
 
-## What does this PR do?
+Describe the site change and why it helps the community.
 
+## Checks
 
-
-## Checklist
-
-- [ ] `pnpm build` passes locally
-- [ ] (Posts) Content has both English and Arabic blocks — or one on purpose (noted above)
-- [ ] (Posts) Images are under `public/assets/posts/` and load in preview
-- [ ] (Posts) Added myself to `authors` in `src/config.ts` (and a `series`, if new)
-- [ ] I read [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md)
+- [ ] `pnpm build` passes
+- [ ] English and Arabic pages checked locally
+- [ ] Desktop and mobile layout checked

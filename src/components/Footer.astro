@@ -5,21 +5,17 @@ import { getTranslation } from "@/i18n";
 const year = new Date().getFullYear();
 
 const pageLinks = [
-  { href: "/posts", key: "nav.posts" },
-  { href: "/series", key: "nav.series" },
   { href: "/members", key: "nav.members" },
-  { href: "/tags", key: "nav.tags" },
-  { href: "/about", key: "nav.about" },
   { href: "/contribute", key: "nav.contribute" },
 ] as const;
 ---
 
-<footer class="saacc-footer border-t border-[#30363d] bg-[#161b22] relative">
+<footer class="relative z-10 border-t border-[#333333] bg-black">
   <div class="max-w-7xl mx-auto py-10 px-6">
     <!-- Page links -->
-    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-8 text-[10px] text-[#8b949e] uppercase tracking-[0.2em]">
+    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-8 text-[10px] text-white/70 uppercase tracking-[0.2em]">
       {pageLinks.map((link) => (
-        <a href={link.href} class="hover:text-[#e6edf3] transition-colors">
+        <a href={link.href} class="hover:text-[#ffffff] transition-colors">
           <span class="lang-ar">{getTranslation("ar", link.key)}</span>
           <span class="lang-en">{getTranslation("en", link.key)}</span>
         </a>
@@ -27,21 +23,18 @@ const pageLinks = [
     </nav>
 
     <!-- Social + copyright -->
-    <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-6 text-[10px] text-[#8b949e] uppercase tracking-[0.2em] border-t border-[#30363d] pt-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-6 text-[10px] text-white/70 uppercase tracking-[0.2em] border-t border-[#333333] pt-8">
       <div class="flex gap-6 justify-center md:justify-start">
-        <a href={config.social.discord} target="_blank" rel="noreferrer" class="hover:text-[#e6edf3] transition-colors">
+        <a href={config.social.discord} target="_blank" rel="noreferrer" class="hover:text-[#ffffff] transition-colors">
           <span class="lang-ar">{getTranslation("ar", "footer.discord")}</span>
           <span class="lang-en">{getTranslation("en", "footer.discord")}</span>
         </a>
-        <a href={config.social.repo} target="_blank" rel="noreferrer" class="hover:text-[#e6edf3] transition-colors">
+        <a href={config.social.repo} target="_blank" rel="noreferrer" class="hover:text-[#ffffff] transition-colors">
           <span class="lang-ar">{getTranslation("ar", "footer.github")}</span>
           <span class="lang-en">{getTranslation("en", "footer.github")}</span>
         </a>
-        <a href="/rss.xml" class="hover:text-[#e6edf3] transition-colors">
-          {getTranslation("en", "footer.rss")}
-        </a>
       </div>
-      <div class="text-center font-mono normal-case tracking-normal text-[#6E6E6E]">saacchq.org</div>
+      <div class="text-center font-mono normal-case tracking-normal text-white/55">saacchq.org</div>
       <div class="text-center md:text-end">
         &copy; {year} sa/acc ·
         <span class="lang-ar">{getTranslation("ar", "footer.rights")}</span>

@@ -5,4 +5,4 @@ contact_links:
     about: Questions, ideas, or just want to say hi? Join the sa/acc Discord.
   - name: 📖 Contribution guide
     url: https://github.com/saacchq/saacchq.org/blob/main/CONTRIBUTING.md
-    about: How to write a post, add yourself as an author, and run the site locally.
+    about: How to run the site locally and propose changes.

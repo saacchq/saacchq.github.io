@@ -3,26 +3,24 @@ import LangToggle from "@/components/LangToggle.astro";
 import { getTranslation } from "@/i18n";
 
 const links = [
-  { href: "/posts", key: "nav.posts" },
-  { href: "/series", key: "nav.series" },
   { href: "/members", key: "nav.members" },
   { href: "/manifesto", key: "nav.manifesto" },
 ];
 
 const linkClass =
-  "inline-flex text-[10px] font-bold uppercase tracking-widest text-[#8b949e] hover:text-[#e6edf3] transition-colors";
+  "inline-flex text-[10px] font-bold uppercase tracking-widest text-white/70 hover:text-[#ffffff] transition-colors";
 // No display utility here on purpose: each use site sets its own, and a second
 // `inline-flex` in the class list would override `hidden` on the desktop one.
 const joinClass =
-  "items-center justify-center px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#22A95A] border border-[#22A95A] hover:bg-[#22A95A] hover:text-[#0d1117] transition-all duration-200";
+  "items-center justify-center px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white border border-[#22A95A] hover:bg-[#22A95A] hover:text-[#000000] transition-all duration-200";
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-40 bg-[#161b22]/80 backdrop-blur-md border-b border-[#30363d]">
+<nav class="fixed top-0 left-0 right-0 z-40 bg-[#050505]/80 backdrop-blur-md border-b border-[#333333]">
   <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center gap-4">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
       <img src="/assets/brand/saacc-avatar.svg" alt="sa/acc" width="32" height="32" />
-      <span class="text-xl font-bold tracking-tight text-[#e6edf3]">sa<span class="text-[#22A95A]">/</span>acc</span>
+      <span class="text-xl font-bold tracking-tight text-[#ffffff]">sa<span class="text-[#22A95A]">/</span>acc</span>
     </a>
 
     <!-- Right side -->
@@ -48,7 +46,7 @@ const joinClass =
       <button
         id="nav-toggle"
         type="button"
-        class="md:hidden inline-flex items-center justify-center w-9 h-9 shrink-0 text-[#8b949e] hover:text-[#e6edf3] transition-colors bg-transparent border-0 cursor-pointer"
+        class="md:hidden inline-flex items-center justify-center w-9 h-9 shrink-0 text-white/70 hover:text-[#ffffff] transition-colors bg-transparent border-0 cursor-pointer"
         aria-label="Menu"
         aria-controls="nav-menu"
         aria-expanded="false"
@@ -62,7 +60,7 @@ const joinClass =
   </div>
 
   <!-- Mobile menu panel -->
-  <div id="nav-menu" class="md:hidden border-t border-[#30363d] bg-[#161b22]" hidden>
+  <div id="nav-menu" class="md:hidden border-t border-[#333333] bg-[#050505]" hidden>
     <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
       {links.map((link) => (
         <a href={link.href} class={linkClass}>

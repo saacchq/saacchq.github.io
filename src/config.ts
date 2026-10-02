@@ -1,5 +1,4 @@
 export const config = {
-  postsPerPage: 10,
   title: "sa/acc — Accelerating AI & Tech in Saudi Arabia",
   titleAr: "sa/acc — تسريع الذكاء الاصطناعي والتقنية في السعودية",
   description: "Saudi Acceleration — Accelerating AI & tech in Saudi Arabia",
@@ -12,7 +11,7 @@ export const config = {
   social: {
     discord: "https://discord.gg/Ks4Dpdzkmn",
     github: "https://github.com/saacchq",
-    repo: "https://github.com/saacchq/saacchq.org",
+    repo: "https://github.com/saacchq/saacchq.github.io",
   },
   partners: [
     {
@@ -45,34 +44,9 @@ export const config = {
     discordGuildId: "",
     discordVoiceChannelId: "",
   },
-  /** Canonical topic tags shown on /tags (alongside the per-series tags). */
-  topics: ["news", "build", "engineering", "research", "share"],
   /**
-   * Post series, each led by an author. A series is identified by a tag: any
-   * post carrying a tag matching one of these keys belongs to that series
-   * (the key is also its /tags/<key> route). Single source of truth for
-   * series names and their lead author's profile link.
-   */
-  series: {
-    "ai-weekly": {
-      name: "AI Weekly",
-      nameAr: "الذكاء الاصطناعي الأسبوعية",
-      author: "Mazen Alotaibi",
-      handle: "ma7dev",
-      authorUrl: "https://x.com/ma7dev",
-    },
-    "ai-abliteration": {
-      name: "AI Abliteration Series",
-      nameAr: "سلسلة أبليتيريشن الذكاء الاصطناعي",
-      author: "Yousef Altaher",
-      handle: "yousef-altaher",
-      authorUrl: "https://www.linkedin.com/in/yousef-altaher/",
-    },
-  },
-  /**
-   * Community members, keyed by full name (use the exact same string in a post's
-   * `author` field to link posts to a member). Each member gets a card on
-   * /members and their own page at /members/<slug>.
+   * Community profiles shown on /members with detail pages. The complete
+   * Discord roster is generated separately at build time.
    *
    * `avatar`: path to a committed image (e.g. your Discord profile picture) under
    *   public/assets/members/, referenced as /assets/members/<file>. Leave empty
@@ -86,7 +60,6 @@ export const config = {
       discord: "ma7dev",
       handle: "ma7dev",
       url: "https://x.com/ma7dev",
-      avatar: "/assets/members/mazen-alotaibi.png",
       bio: "",
       bioAr: "",
     },
@@ -97,7 +70,6 @@ export const config = {
       discord: "",
       handle: "yousef-altaher",
       url: "https://www.linkedin.com/in/yousef-altaher/",
-      avatar: "/assets/members/yousef-altaher.png",
       bio: "",
       bioAr: "",
     },
