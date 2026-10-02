@@ -30,19 +30,19 @@ const dateStrAr = pubDatetime.toLocaleDateString("ar-SA", {
 
 <a
   href={`/posts/${slug}`}
-  class="block bg-[#171717] border border-[#252525] rounded-lg p-6 hover:border-[#3fb950]/50 transition-colors group"
+  class="block bg-[#171717] border border-[#252525] rounded-lg p-6 hover:border-[#22A95A]/50 transition-colors group"
 >
   <!-- Tags -->
   <div class="flex flex-wrap gap-2 mb-3">
     {tags.map((tag) => (
-      <span class="text-[10px] font-bold uppercase tracking-widest text-[#3fb950] bg-[#3fb950]/10 px-2 py-0.5 rounded">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-[#22A95A] bg-[#22A95A]/10 px-2 py-0.5 rounded">
         {tag}
       </span>
     ))}
   </div>
 
   <!-- Title -->
-  <h2 class="text-lg font-bold text-[#e6edf3] group-hover:text-[#3fb950] transition-colors mb-2">
+  <h2 class="text-lg font-bold text-[#e6edf3] group-hover:text-[#22A95A] transition-colors mb-2">
     <span class="lang-en">{title}</span>
     <span class="lang-ar">{titleAr || title}</span>
   </h2>

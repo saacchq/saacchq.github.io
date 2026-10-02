@@ -37,10 +37,10 @@ const dateOpts = { year: "numeric", month: "short", day: "numeric" } as const;
             return (
               <a
                 href={`/series/${series.key}`}
-                class="group block bg-[#171717] border border-[#252525] rounded-lg p-6 hover:border-[#3fb950]/50 transition-colors"
+                class="group block bg-[#171717] border border-[#252525] rounded-lg p-6 hover:border-[#22A95A]/50 transition-colors"
               >
                 <div class="flex items-baseline justify-between gap-3">
-                  <h2 class="text-xl font-bold text-[#e6edf3] group-hover:text-[#3fb950] transition-colors">
+                  <h2 class="text-xl font-bold text-[#e6edf3] group-hover:text-[#22A95A] transition-colors">
                     <span class="lang-en">{series.name}</span>
                     <span class="lang-ar">{series.nameAr || series.name}</span>
                   </h2>
@@ -54,7 +54,7 @@ const dateOpts = { year: "numeric", month: "short", day: "numeric" } as const;
                 <p class="mt-2 text-sm text-[#8b949e]">
                   <span class="lang-en">{getTranslation("en", "series.by")}</span>
                   <span class="lang-ar">{getTranslation("ar", "series.by")}</span>{" "}
-                  <span class="font-bold text-[#3fb950]">{series.author}</span>{" "}
+                  <span class="font-bold text-[#22A95A]">{series.author}</span>{" "}
                   <span>(@{series.handle})</span>
                 </p>
 

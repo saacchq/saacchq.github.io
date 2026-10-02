@@ -63,7 +63,7 @@ const faqs = [1, 2, 3];
       <section class="grid md:grid-cols-2 gap-8">
         <div class="border border-[#30363d] p-8 bg-[#161b22]/30">
           <h2 class="text-xs font-bold text-[#8b949e] uppercase tracking-widest mb-6 flex items-center gap-2">
-            <span class="w-2 h-2 bg-[#3fb950] rounded-full"></span>
+            <span class="w-2 h-2 bg-[#22A95A] rounded-full"></span>
             <span class="lang-en">{getTranslation("en", "partners.title")}</span>
             <span class="lang-ar">{getTranslation("ar", "partners.title")}</span>
           </h2>
@@ -72,13 +72,13 @@ const faqs = [1, 2, 3];
               href={partner.url}
               target="_blank"
               rel="noreferrer"
-              class="group flex items-center gap-4 p-4 border border-[#30363d] hover:border-[#3fb950] transition-colors [unicode-bidi:isolate]"
+              class="group flex items-center gap-4 p-4 border border-[#30363d] hover:border-[#22A95A] transition-colors [unicode-bidi:isolate]"
               dir="ltr"
             >
               <img src={partner.logo} alt={partner.name} width="40" height="40" class="flex-shrink-0 rounded" />
               <div class="flex-grow">
-                <div class="text-base font-bold text-[#e6edf3] group-hover:text-[#3fb950] transition-colors">{partner.name}</div>
-                <div class="flex items-center gap-1.5 text-[11px] text-[#8b949e] group-hover:text-[#3fb950] transition-colors" dir="ltr">
+                <div class="text-base font-bold text-[#e6edf3] group-hover:text-[#22A95A] transition-colors">{partner.name}</div>
+                <div class="flex items-center gap-1.5 text-[11px] text-[#8b949e] group-hover:text-[#22A95A] transition-colors" dir="ltr">
                   <span class="[unicode-bidi:isolate]">{partner.urlLabel}</span>
                   <span aria-hidden="true">&rarr;</span>
                 </div>

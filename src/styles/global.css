@@ -25,7 +25,7 @@
   --color-github-border: #30363d;
   --color-github-text: #e6edf3;
   --color-github-muted: #8b949e;
-  --color-github-green: #3fb950;
+  --color-github-green: #22A95A;
   --color-github-header: #161b22;
 }
 
@@ -35,7 +35,7 @@
   --border: #30363d;
   --text-main: #e6edf3;
   --text-muted: #8b949e;
-  --green: #3fb950;
+  --green: #22A95A;
   --header: #161b22;
 }
 
@@ -47,15 +47,38 @@ html {
 
 body {
   background-color: var(--bg);
-  background-image:
-    linear-gradient(rgba(48, 54, 61, 0.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(48, 54, 61, 0.2) 1px, transparent 1px);
-  background-size: 40px 40px;
   color: var(--text-main);
   min-height: 100vh;
   font-family: "Cascadia Code Arabic", "JetBrains Mono", monospace;
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+/* The strip repeats the logo's rails, sharp turns, and equal diamonds. */
+.saacc-hero {
+  position: relative;
+  padding-block-start: 48px;
+}
+
+.saacc-hero::before,
+.saacc-footer::before {
+  content: "";
+  display: block;
+  height: 16px;
+  width: 100%;
+  background: url("/assets/brand/saacc-pattern-strip.svg") repeat-x left center / 64px 16px;
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+.saacc-hero::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.saacc-footer::before {
+  opacity: 0.28;
 }
 
 html[lang="ar"] body {
@@ -138,7 +161,7 @@ html[lang="ar"] .lang-block.lang-ar {
 
 /* ─── Accessibility: visible keyboard focus ─── */
 :focus-visible {
-  outline: 2px solid #3fb950;
+  outline: 2px solid #22A95A;
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -195,7 +218,7 @@ button:focus:not(:focus-visible),
   font-weight: 700;
   line-height: 1;
   margin-bottom: 0.5rem;
-  color: #3fb950;
+  color: #22A95A;
 }
 .stat-block .stat-label {
   display: block;
@@ -204,7 +227,7 @@ button:focus:not(:focus-visible),
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-.stat-block.stat-green .stat-number { color: #3fb950; }
+.stat-block.stat-green .stat-number { color: #22A95A; }
 .stat-block.stat-red .stat-number { color: #f85149; }
 .stat-block.stat-blue .stat-number { color: #58a6ff; }
 .stat-block.stat-purple .stat-number { color: #bc8cff; }
@@ -221,7 +244,7 @@ button:focus:not(:focus-visible),
   gap: 0.75rem;
   background: #171717;
   /* logical, so the accent bar sits on the start edge in both LTR and RTL */
-  border-inline-start: 4px solid #3fb950;
+  border-inline-start: 4px solid #22A95A;
   border-radius: 6px;
   padding: 1rem 1.25rem;
   margin: 1.5rem 0;
@@ -231,7 +254,7 @@ button:focus:not(:focus-visible),
 .callout::before {
   content: "ℹ";
   flex-shrink: 0;
-  color: #3fb950;
+  color: #22A95A;
   font-weight: 700;
 }
 .callout-info { border-inline-start-color: #58a6ff; }
@@ -240,8 +263,8 @@ button:focus:not(:focus-visible),
 .callout-warning::before { content: "⚠"; color: #d29922; }
 .callout-danger { border-inline-start-color: #f85149; }
 .callout-danger::before { content: "✕"; color: #f85149; }
-.callout-success { border-inline-start-color: #3fb950; }
-.callout-success::before { content: "✓"; color: #3fb950; }
+.callout-success { border-inline-start-color: #22A95A; }
+.callout-success::before { content: "✓"; color: #22A95A; }
 .callout p {
   margin: 0;
 }
@@ -455,10 +478,10 @@ body.slideshow-active .figure-people figcaption {
   word-break: break-all;
 }
 .prose .footnotes a {
-  color: #3fb950;
+  color: #22A95A;
 }
 .prose sup a {
-  color: #3fb950;
+  color: #22A95A;
   text-decoration: none;
   font-weight: 600;
   padding: 0 2px;
@@ -470,12 +493,12 @@ body.slideshow-active .figure-people figcaption {
   line-height: 1.2 !important;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #3fb950 !important;
+  color: #22A95A !important;
   margin-top: 4rem !important;
   margin-bottom: 2rem !important;
   padding: 0.75rem 1rem !important;
   background: linear-gradient(90deg, rgba(63, 185, 80, 0.08), transparent);
-  border-inline-start: 3px solid #3fb950;
+  border-inline-start: 3px solid #22A95A;
   border-bottom: none !important;
 }
 /* gradients take no logical direction, so mirror the tint by hand in RTL */
@@ -493,7 +516,7 @@ html[dir="rtl"] .prose h2 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #3fb950;
+  color: #22A95A;
   background: rgba(63, 185, 80, 0.12);
   border: 1px solid rgba(63, 185, 80, 0.3);
   padding: 0.25rem 0.625rem;

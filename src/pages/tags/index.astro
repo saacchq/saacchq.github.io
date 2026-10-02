@@ -45,9 +45,9 @@ const seriesTags = getAllSeries().map((s) => ({
           count > 0 ? (
             <a
               href={`/tags/${tag}`}
-              class="inline-flex items-center gap-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950]/50 rounded-lg px-4 py-2 transition-colors"
+              class="inline-flex items-center gap-2 bg-[#171717] border border-[#252525] hover:border-[#22A95A]/50 rounded-lg px-4 py-2 transition-colors"
             >
-              <span class="text-xs font-bold uppercase tracking-widest text-[#3fb950]">{tag}</span>
+              <span class="text-xs font-bold uppercase tracking-widest text-[#22A95A]">{tag}</span>
               <span class="text-xs text-[#6E6E6E]">{count}</span>
             </a>
           ) : (
@@ -73,9 +73,9 @@ const seriesTags = getAllSeries().map((s) => ({
             {seriesTags.map(({ tag, name, nameAr, count }) => (
               <a
                 href={`/tags/${tag}`}
-                class="inline-flex items-center gap-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950]/50 rounded-lg px-4 py-2 transition-colors"
+                class="inline-flex items-center gap-2 bg-[#171717] border border-[#252525] hover:border-[#22A95A]/50 rounded-lg px-4 py-2 transition-colors"
               >
-                <span class="text-xs font-bold text-[#3fb950]">
+                <span class="text-xs font-bold text-[#22A95A]">
                   <span class="lang-en">{name}</span>
                   <span class="lang-ar">{nameAr || name}</span>
                 </span>

@@ -66,7 +66,7 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
       <!-- Back link -->
       <a
         href="/posts"
-        class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors mb-6"
+        class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#22A95A] transition-colors mb-6"
       >
         <span class="lang-en">&larr;</span>
         <span class="lang-ar">&rarr;</span>
@@ -82,7 +82,7 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
             {data.tags.map((tag) => (
               <a
                 href={`/tags/${tag.toLowerCase()}`}
-                class="text-[10px] font-bold uppercase tracking-widest text-[#3fb950] bg-[#3fb950]/10 px-2 py-0.5 rounded hover:bg-[#3fb950]/20 transition-colors"
+                class="text-[10px] font-bold uppercase tracking-widest text-[#22A95A] bg-[#22A95A]/10 px-2 py-0.5 rounded hover:bg-[#22A95A]/20 transition-colors"
               >
                 {tag}
               </a>
@@ -108,12 +108,12 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
                 href={series.authorUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-[#3fb950] hover:underline inline-flex items-center gap-1"
+                class="text-[#22A95A] hover:underline inline-flex items-center gap-1"
               >
                 {series.author} <span class="text-[#6E6E6E]">(@{series.handle})</span>
               </a>
             ) : (
-              <span class="text-[#3fb950]">{data.author}</span>
+              <span class="text-[#22A95A]">{data.author}</span>
             )}
             <span>·</span>
             <time>
@@ -135,7 +135,7 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
           <button
             type="button"
             data-slideshow-start
-            class="inline-flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950] hover:text-[#3fb950] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#22A95A] hover:text-[#22A95A] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
@@ -167,7 +167,7 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
                       <li>
                         <a
                           href={`#${entry.id}`}
-                          class="block text-[#8b949e] hover:text-[#3fb950] transition-colors leading-snug"
+                          class="block text-[#8b949e] hover:text-[#22A95A] transition-colors leading-snug"
                         >
                           {entry.text}
                         </a>
@@ -183,7 +183,7 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
                       <li>
                         <a
                           href={`#${entry.id}`}
-                          class="block text-[#8b949e] hover:text-[#3fb950] transition-colors leading-snug"
+                          class="block text-[#8b949e] hover:text-[#22A95A] transition-colors leading-snug"
                         >
                           {entry.text}
                         </a>
@@ -204,10 +204,10 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
             prose-headings:text-[#e6edf3] prose-headings:font-bold prose-headings:scroll-mt-24
             prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-4 prose-h3:pb-2 prose-h3:border-b prose-h3:border-[#252525]
             prose-p:text-[#c9d1d9] prose-p:leading-relaxed
-            prose-a:text-[#3fb950] prose-a:no-underline hover:prose-a:underline
+            prose-a:text-[#22A95A] prose-a:no-underline hover:prose-a:underline
             prose-strong:text-[#e6edf3]
             prose-code:text-[#e6edf3] prose-code:bg-[#252525] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:before:content-none prose-code:after:content-none
-            prose-blockquote:border-[#3fb950] prose-blockquote:text-[#8b949e]
+            prose-blockquote:border-[#22A95A] prose-blockquote:text-[#8b949e]
             prose-hr:border-[#252525] prose-hr:my-12
             prose-table:text-[#c9d1d9]
             prose-th:text-[#e6edf3] prose-th:border-[#252525]
@@ -231,7 +231,7 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
         <button
           type="button"
           data-slideshow-prev
-          class="flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950] hover:text-[#3fb950] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          class="flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#22A95A] hover:text-[#22A95A] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           <span class="lang-en">Prev</span>
@@ -247,7 +247,7 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
           <button
             type="button"
             data-slideshow-next
-            class="flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#3fb950] hover:text-[#3fb950] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            class="flex items-center gap-2 px-4 py-2 bg-[#171717] border border-[#252525] hover:border-[#22A95A] hover:text-[#22A95A] rounded-lg text-xs font-bold uppercase tracking-widest text-[#8b949e] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <span class="lang-en">Next</span>
             <span class="lang-ar">التالي</span>
@@ -264,7 +264,7 @@ const dateStrAr = data.pubDatetime.toLocaleDateString("ar-SA", {
         </div>
       </div>
       <div class="h-1 bg-[#252525]">
-        <div data-slideshow-progress class="h-full bg-[#3fb950] transition-all duration-200" style="width: 0%"></div>
+        <div data-slideshow-progress class="h-full bg-[#22A95A] transition-all duration-200" style="width: 0%"></div>
       </div>
     </div>
   )}

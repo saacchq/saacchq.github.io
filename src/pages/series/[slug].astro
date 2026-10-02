@@ -37,7 +37,7 @@ const { series, member } = Astro.props;
     <div class="max-w-3xl mx-auto px-6">
       <a
         href="/series"
-        class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors mb-6"
+        class="inline-flex items-center gap-1 text-xs text-[#8b949e] hover:text-[#22A95A] transition-colors mb-6"
       >
         <span class="lang-en">&larr;</span>
         <span class="lang-ar">&rarr;</span>
@@ -69,7 +69,7 @@ const { series, member } = Astro.props;
           </p>
           <p class="mt-0.5 flex flex-wrap items-center gap-x-2 text-[#8b949e]">
             {member ? (
-              <a href={`/members/${member.slug}`} class="font-bold text-[#3fb950] hover:underline">
+              <a href={`/members/${member.slug}`} class="font-bold text-[#22A95A] hover:underline">
                 {series.author}
               </a>
             ) : (
@@ -79,7 +79,7 @@ const { series, member } = Astro.props;
               href={series.authorUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 hover:text-[#3fb950] transition-colors"
+              class="inline-flex items-center gap-1 hover:text-[#22A95A] transition-colors"
             >
               <span>@{series.handle}</span>
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
@@ -92,7 +92,7 @@ const { series, member } = Astro.props;
       <h2 class="text-xs font-bold uppercase tracking-widest text-[#6E6E6E] mb-5 border-b border-[#252525] pb-3">
         <span class="lang-en">{getTranslation("en", "series.postsHeading")}</span>
         <span class="lang-ar">{getTranslation("ar", "series.postsHeading")}</span>
-        <span class="text-[#3fb950]"> {series.posts.length}</span>
+        <span class="text-[#22A95A]"> {series.posts.length}</span>
       </h2>
 
       {series.posts.length === 0 ? (
@@ -119,7 +119,7 @@ const { series, member } = Astro.props;
 
       <a
         href={`/tags/${series.key}`}
-        class="inline-flex items-center gap-1 mt-8 text-xs text-[#8b949e] hover:text-[#3fb950] transition-colors"
+        class="inline-flex items-center gap-1 mt-8 text-xs text-[#8b949e] hover:text-[#22A95A] transition-colors"
       >
         <span class="lang-en">{getTranslation("en", "series.viewTag")}</span>
         <span class="lang-ar">{getTranslation("ar", "series.viewTag")}</span>
